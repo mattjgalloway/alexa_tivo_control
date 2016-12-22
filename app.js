@@ -11,6 +11,7 @@ var config = require("./config.json");
 var strings = require("./constants.json");
 
 // load settings from config file
+var currentTiVoIP = config.tivoIP;
 var tivoMini = config.tivoMini || false;
 var route = config.route || "tivo_control";
 
@@ -31,6 +32,8 @@ var noResponse = true;
 var providerEnabled;
 var speechList = "";
 var cardList = "";
+var currentTiVoBox = "default";
+var currentTiVoString = "default";
 
 // define an alexa-app
 var app = new alexa.app(route);
@@ -817,6 +820,55 @@ app.intent('PlexMusic',
             response.say(strings.plex_m + strings.txt_notenabled);
     });
 
+// SELECTION
+
+app.intent('ChangeTiVoBox',
+    {
+       "slots":{"TIVOBOX":"AMAZON.Room"},
+        "utterances":[ "{to|} control {-|TIVOBOX}" ]
+    },
+    function(request,response) {
+        currentTiVoString = request.slot("TIVOBOX").toLowerCase();
+        console.log("Control requested for '" + currentTiVoString + "' TiVo.");
+
+        // replace spaces wuth underscores to match variable names in config.json
+        currentTiVoBox = currentTiVoString.replace(" ", "_");
+
+        // confirm selected TiVo exists in config.json
+        currentTiVoIP = eval("config." + currentTiVoBox);
+        if (typeof currentTiVoIP != "undefined") { 
+            tivoMini = eval("config." + currentTiVoBox + "_IsMini");
+            if (tivoMini == true)
+                currentTiVoString = currentTiVoString + " mini"
+            else 
+                tivoMini = false;
+        }
+        else {
+            // the requested TiVo doesn't exist in config.json or the default was requested
+            if (currentTiVoBox != "default") {
+                currentTiVoBox = "default";
+                console.log("Undefined TiVo requested. Switching back to default.");
+                response.say(strings.txt_undefinedtivo);
+            }
+            currentTiVoString = currentTiVoBox;
+            currentTiVoIP = config.tivoIP;
+            tivoMini = config.tivoMini;
+        }
+        console.log("Now controlling: " + currentTiVoString + " (" + currentTiVoIP + ").");
+        response.say("Now controlling your" + currentTiVoString + " TiVo.");
+    });
+
+app.intent('WhichTiVoBox',
+    {
+       "slots":{},
+        "utterances":[ "{which|current} {tivo|tivo box|dvr}" ]
+    },
+    function(request,response) {
+        console.log("Currently controlling: " + currentTiVoString + " (" + currentTiVoIP + ")");
+        response.say("Currently controlling your " + currentTiVoString + " TiVo.");
+    });
+
+
 // functions -----------------------------------------------------------
 
 function sendNextCommand () {
@@ -869,7 +921,7 @@ function sendNextCommand () {
 // send a series of queued-up commands to the TiVo (with delays in-between)
 function sendCommands(commands) {
 
-    var host = config.tivoIP;
+    var host = currentTiVoIP;
     var port = config.tivoPort;
 
     // move the list of passed-in commands into queuedCommands
