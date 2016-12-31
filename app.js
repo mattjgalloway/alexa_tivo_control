@@ -787,7 +787,7 @@ app.intent('iHeartRadio',
 app.intent('Vevo',
     {
         "slots":{},
-        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {vevo music}", "play {music|music on|} vevo music" ]
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {vevo music|music videos}", "play {music|music on|} vevo music" ]
     },
     function(request,response) {
         if (checkProviderEnabled(strings.vevo)) {
