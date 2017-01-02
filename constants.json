@@ -32,9 +32,11 @@
   "txt_providercard": "Here's a list of video and audio providers along with whether or not they are enabled for TiVo Control on your ",
   "txt_providercard2": " TiVo box:\n\n",
   "txt_providerfooter": "\n\nYou must update your config.json file in the TiVo Control directory and mark the providers you have active on each TiVo as 'true'. This is used by the program to dynamically determine the remote key-presses required to navigate to the proper menu item.",
-  "txt_undefinedtivo": "Sorry, that TiVo isn't defined in your TiVo Control configuration file.",
+  "txt_undefinedtivo": "Sorry, I couldn't find a TiVo named ",
+  "txt_undefinedtivo2": " in your TiVo Control configuration file.",
   "txt_tivolist": "The following TiVo boxes are configured for TiVo Control:",
   "txt_tivofooter": "\n\nUse the names above when asking TiVo Control to switch between TiVo boxes (i.e., 'Alexa, tell TiVo to control Family Room.'\n\nYou must update your config.json file in the TiVo Control directory and add a section for each TiVo box you want to control with this program.",
+  "txt_onetivo": "Sorry, only one TiVo box is set up for TiVo Control in your configuration file, so I can't switch to that box.",
 
   "alexaTestAppId": "amzn1.echo-sdk-ams.app.000000-d0ed-0000-ad00-000000d00ebe"
 }

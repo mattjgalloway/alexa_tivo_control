@@ -109,22 +109,28 @@ app.intent('ChangeTiVoBox',
         "utterances":[ "{to|} {control|select|switch to|use} {-|TIVOBOX}" ]
     },
     function(request,response) {
-        currentTiVoBox = request.slot("TIVOBOX");
-        console.log("Control requested for '" + currentTiVoBox + "' TiVo.");
 
-        // confirm selected TiVo exists in config.json
-        tivoIndex = findTiVoBoxConfig(currentTiVoBox);
+        if (totalTiVos > 1) {
+            currentTiVoBox = request.slot("TIVOBOX");
+            console.log("Control requested for '" + currentTiVoBox + "' TiVo.");
 
-        if (tivoIndex < 0) {
-            // the requested TiVo doesn't exist in the config file
-            console.log("Undefined TiVo requested. Switching back to default.");
-            response.say(strings.txt_undefinedtivo);
-            tivoIndex = 0;
+            // confirm selected TiVo exists in config.json
+            tivoIndex = findTiVoBoxConfig(currentTiVoBox);
+
+            if (tivoIndex < 0) {
+                // the requested TiVo doesn't exist in the config file
+                console.log("Undefined TiVo requested. Switching back to default.");
+                response.say(strings.txt_undefinedtivo + currentTiVoBox + strings.txt_undefinedtivo2);
+                tivoIndex = 0;
+            }
         }
-        
-        updateCurrentTiVoConfig(tivoIndex);
-        response.say("Now controlling your " + currentTiVoBox + " TiVo.");
+        else {
+            // only one TiVo is configured so ignore the any switch requests
+            response.say(strings.txt_onetivo);
+        }
 
+        updateCurrentTiVoConfig(tivoIndex);
+        response.say("Currently controlling your " + currentTiVoBox + " TiVo.");
     });
 
 app.intent('WhichTiVoBox',
@@ -1152,8 +1158,7 @@ function updateCurrentTiVoConfig(tivoIndex) {
     // update audio provider status
     audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].spotify, config.tivos[tivoIndex].vevo];
 
-    console.log("Now controlling: " + currentTiVoBox + " (" + currentTiVoIP + ").");
-
+    console.log("Currently controlling: " + currentTiVoBox + " (" + currentTiVoIP + ")");
 }
 
 module.exports = app;
