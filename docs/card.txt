@@ -6,7 +6,7 @@ Then, replace all CR/LF with \n and put the resulting string into the
 txt_help attribute in the constants.json file.
 ---- REMOVE BETWEEN THESE LINES ----
 
-Welcome to TiVo Control! You can use this skill to voice control your TiVos through your Alexa-enabled devices like the Amazon Echo or Dot.
+Welcome to TiVo Control! You can use this skill to voice control your TiVos through Alexa-enabled devices like the Amazon Echo or Dot.
 
 All of the voice commands start with 'Alexa, tell/ask TiVo to ...':
 
