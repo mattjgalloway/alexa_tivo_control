@@ -11,17 +11,11 @@ var config = require("./config.json");
 var strings = require("./constants.json");
 
 // load settings from config file
-var currentTiVoIP = config.tivoIP;
-var tivoMini = config.tivoMini || false;
 var route = config.route || "tivo_control";
 
-// set video providers and their status
+// set video and audio provider order
 var video_provider_order = [strings.netflix, strings.amazon, strings.hbogo, strings.hulu, strings.youtube, strings.mlbtv, strings.plex, strings.vudu, strings.hsn, strings.alt, strings.flixfling, strings.toongoggles, strings.wwe, strings.yahoo, strings.yupptv];
-var video_provider_status = [config.netflix, config.amazon, config.hbogo, config.hulu, config.youtube, config.mlbtv, config.plex, config.vudu, config.hsn, config.alt, config.flixfling, config.toongoggles, config.wwe, config.yahoo, config.yupptv];
-
-// set audio providers and their status
 var audio_provider_order = [strings.iheartradio, strings.pandora, strings.plex_m, strings.spotify, strings.vevo];
-var audio_provider_status = [config.iheartradio, config.pandora, config.plex_m, config.spotify, config.vevo];
 
 // define variables
 var queuedCommands = [];
@@ -32,8 +26,13 @@ var noResponse = true;
 var providerEnabled;
 var speechList = "";
 var cardList = "";
-var currentTiVoBox = "default";
-var currentTiVoString = "default";
+var video_provider_status;
+var audio_provider_status;
+var tivoIndex = 0;
+var totalTiVos = Object.keys(config.tivos).length;
+
+// set default TiVo (first one in config file)
+updateCurrentTiVoConfig(tivoIndex);
 
 // define an alexa-app
 var app = new alexa.app(route);
@@ -51,7 +50,6 @@ app.error = function(exception, request, response) {
     console.log(exception);
     response.say("Sorry, an error has occured. Please try your request again.");
 };
-
 
 // launch --------------------------------------------------------------
 
@@ -88,7 +86,7 @@ app.intent('Help',
     function(request,response) {
         console.log("Help requested, adding card.");
         response.say(strings.txt_launch + strings.txt_card);
-        response.card("TiVo Control Help", strings.txt_help);
+        response.card("Help", strings.txt_help);
     });
 
 app.intent('ListEnabledProviders',
@@ -99,8 +97,56 @@ app.intent('ListEnabledProviders',
     function(request,response) {
         console.log("List of enabled providers requested, adding card.");
         createProviderList();
-        response.say(strings.txt_enabledlist + speechList + strings.txt_enabledcard);
-        response.card("TiVo Control - Providers", strings.txt_providercard + cardList + strings.txt_providerfooter);
+        response.say(strings.txt_enabledlist + currentTiVoBox + strings.txt_enabledlist2 + speechList + strings.txt_enabledcard);
+        response.card("Providers", strings.txt_providercard + currentTiVoBox + strings.txt_providercard2 + cardList + strings.txt_providerfooter);
+    });
+
+// BOX SELECTION
+
+app.intent('ChangeTiVoBox',
+    {
+       "slots":{"TIVOBOX":"AMAZON.Room"},
+        "utterances":[ "{to|} {control|select|switch to|use} {-|TIVOBOX}" ]
+    },
+    function(request,response) {
+        currentTiVoBox = request.slot("TIVOBOX");
+        console.log("Control requested for '" + currentTiVoBox + "' TiVo.");
+
+        // confirm selected TiVo exists in config.json
+        tivoIndex = findTiVoBoxConfig(currentTiVoBox);
+
+        if (tivoIndex < 0) {
+            // the requested TiVo doesn't exist in the config file
+            console.log("Undefined TiVo requested. Switching back to default.");
+            response.say(strings.txt_undefinedtivo);
+            tivoIndex = 0;
+        }
+        
+        updateCurrentTiVoConfig(tivoIndex);
+        response.say("Now controlling your " + currentTiVoBox + " TiVo.");
+
+    });
+
+app.intent('WhichTiVoBox',
+    {
+       "slots":{},
+        "utterances":[ "{which|current} {tivo|tivo box|dvr|box}" ]
+    },
+    function(request,response) {
+        console.log("Currently controlling: " + currentTiVoBox + " (" + currentTiVoIP + ")");
+        response.say("Currently controlling your " + currentTiVoBox + " TiVo.");
+    });
+
+app.intent('ListTiVoBoxes',
+    {
+        "slots":{},
+        "utterances":[ "{for|to} {my tivos|list my tivos|tivo|list tivos|tivo list|list tivo boxes|list boxes}" ]
+    },
+    function(request,response) {
+        console.log("List of Tivo boxes requested, adding card.");
+        createTiVoBoxList();
+        response.say(strings.txt_tivolist + speechList + strings.txt_enabledcard);
+        response.card("TiVo Boxes", strings.txt_tivolist + cardList + strings.txt_tivofooter);
     });
 
 // PLACES
@@ -820,55 +866,6 @@ app.intent('PlexMusic',
             response.say(strings.plex_m + strings.txt_notenabled);
     });
 
-// SELECTION
-
-app.intent('ChangeTiVoBox',
-    {
-       "slots":{"TIVOBOX":"AMAZON.Room"},
-        "utterances":[ "{to|} control {-|TIVOBOX}" ]
-    },
-    function(request,response) {
-        currentTiVoString = request.slot("TIVOBOX").toLowerCase();
-        console.log("Control requested for '" + currentTiVoString + "' TiVo.");
-
-        // replace spaces wuth underscores to match variable names in config.json
-        currentTiVoBox = currentTiVoString.replace(" ", "_");
-
-        // confirm selected TiVo exists in config.json
-        currentTiVoIP = eval("config." + currentTiVoBox);
-        if (typeof currentTiVoIP != "undefined") { 
-            tivoMini = eval("config." + currentTiVoBox + "_IsMini");
-            if (tivoMini == true)
-                currentTiVoString = currentTiVoString + " mini"
-            else 
-                tivoMini = false;
-        }
-        else {
-            // the requested TiVo doesn't exist in config.json or the default was requested
-            if (currentTiVoBox != "default") {
-                currentTiVoBox = "default";
-                console.log("Undefined TiVo requested. Switching back to default.");
-                response.say(strings.txt_undefinedtivo);
-            }
-            currentTiVoString = currentTiVoBox;
-            currentTiVoIP = config.tivoIP;
-            tivoMini = config.tivoMini;
-        }
-        console.log("Now controlling: " + currentTiVoString + " (" + currentTiVoIP + ").");
-        response.say("Now controlling your" + currentTiVoString + " TiVo.");
-    });
-
-app.intent('WhichTiVoBox',
-    {
-       "slots":{},
-        "utterances":[ "{which|current} {tivo|tivo box|dvr}" ]
-    },
-    function(request,response) {
-        console.log("Currently controlling: " + currentTiVoString + " (" + currentTiVoIP + ")");
-        response.say("Currently controlling your " + currentTiVoString + " TiVo.");
-    });
-
-
 // functions -----------------------------------------------------------
 
 function sendNextCommand () {
@@ -922,7 +919,7 @@ function sendNextCommand () {
 function sendCommands(commands) {
 
     var host = currentTiVoIP;
-    var port = config.tivoPort;
+    var port = currentTiVoPort;
 
     // move the list of passed-in commands into queuedCommands
     queuedCommands = [];
@@ -1101,6 +1098,61 @@ function createProviderList() {
     }
 
     console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
+
+}
+
+// generate a list of TiVo boxes from the config file (to be spoken and added to help card)
+function createTiVoBoxList() {
+
+    speechList = "";
+    cardList = "";
+
+    console.log("building list of TiVo boxes");
+    for (i = 0; i < totalTiVos; i++) {
+        speechList = speechList + ", " + config.tivos[i].name;
+        cardList = cardList + "\n- " + config.tivos[i].name;
+        // indicate default TiVo box
+        if (i == 0) 
+            cardList = cardList + " (default)";
+        // indicate current TiVo box
+        if (i == tivoIndex)
+            cardList = cardList + " [current]";
+    }
+
+    console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
+
+}
+
+// find the index of the requested TiVo in the config file
+function findTiVoBoxConfig(currentTiVoBox) {
+
+    console.log("Searching for '" + currentTiVoBox +"' in config file ...");
+    for (i = 0; i < totalTiVos; i++) {
+        if (config.tivos[i].name.toLowerCase() == currentTiVoBox.toLowerCase()) {
+            console.log("Found! (" + i + ")");
+            return i;
+        }
+    }
+
+    console.log("Not found!");
+    return -1;
+}
+
+// update all variables related to the currently selected TiVo
+function updateCurrentTiVoConfig(tivoIndex) {
+
+    currentTiVoBox = config.tivos[tivoIndex].name;
+    currentTiVoIP = config.tivos[tivoIndex].address;
+    currentTiVoPort = config.tivos[tivoIndex].port;
+    tivoMini = config.tivos[tivoIndex].mini;
+
+    // update video provider status
+    video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv];
+ 
+    // update audio provider status
+    audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].spotify, config.tivos[tivoIndex].vevo];
+
+    console.log("Now controlling: " + currentTiVoBox + " (" + currentTiVoIP + ").");
 
 }
 

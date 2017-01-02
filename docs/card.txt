@@ -6,7 +6,7 @@ Then, replace all CR/LF with \n and put the resulting string into the
 txt_help attribute in the constants.json file.
 ---- REMOVE BETWEEN THESE LINES ----
 
-Welcome to TiVo Control. You can use this skill to control your TiVo with your Amazon Echo and Alexa voice control.
+Welcome to TiVo Control! You can use this skill to voice control your TiVos through your Alexa-enabled devices like the Amazon Echo or Dot.
 
 All of the voice commands start with 'Alexa, tell/ask TiVo to ...':
 
@@ -42,6 +42,11 @@ PLACES
 PROVIDERS
 ... launch/start/open <provider name>
 ... list providers (also adds a card to your Alexa app listing all available providers)
+
+BOX SELECTION
+... control/use <box name> (where <box name> matches the name of a TiVo you have set up in the configuration file)
+... which box
+... list boxes (also adds a card to your Alexa app listing your configured TiVo Boxes)
 
 ADVANCED
 ... send the command <command>
