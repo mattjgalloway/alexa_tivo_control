@@ -1,0 +1,12 @@
+{
+  "<channel name in lower case>": <channel number>,
+  "nbc": 1008,
+  "cbs": 1010,
+  "abc": 1011,
+  "fox": 1013,
+  "pbs": 1003,
+  "espn": 1127,
+  "espn2": 1128,
+  "sci fi": 1286,
+  "comedy central": 1292
+}
