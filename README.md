@@ -5,8 +5,8 @@ A skill to voice control your TiVo DVRs through Alexa-enabled devices like the A
 ## Requirements
 
 * [Node.js](https://nodejs.org/en/blog/release/v0.10.36/)
-* [Alexa-App-Server](https://www.npmjs.com/package/alexa-app-server)
-* [Alexa-App](https://www.npmjs.com/package/alexa-app)
+* [Alexa-App-Server](https://github.com/matt-kruse/alexa-app-server)
+* [Alexa-App](https://github.com/matt-kruse/alexa-app)
 
 - - -
 ## Installation Instructions
