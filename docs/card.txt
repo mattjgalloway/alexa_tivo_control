@@ -32,7 +32,8 @@ FEATURES
 ... turn on/off/toggle QuickMode
 
 PLACES
-... go to Live TV
+... go to/show Live TV
+... go to/show Guide
 ... go Home/TiVo Central
 ... go to/show My Shows/Now Playing
 ... go to/show my OnePasses

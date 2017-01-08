@@ -173,11 +173,22 @@ app.intent('GoHome',
 app.intent('LiveTV',
     {
         "slots":{},
-        "utterances":[ "send {the|} {command|} live tv", "go to live tv", "live tv" ]
+        "utterances":[ "{show|go to|} live tv" ]
     },
     function(request,response) {
         var commands = [];
         commands.push("LIVETV");
+        sendCommands(commands);
+    });
+
+app.intent('Guide',
+    {
+        "slots":{},
+        "utterances":[ "{show|go to|} {the|} guide" ]
+    },
+    function(request,response) {
+        var commands = [];
+        commands.push("GUIDE");
         sendCommands(commands);
     });
 
@@ -308,7 +319,7 @@ app.intent('PutOn',
 	var commands = [];
 	var chnl = String(request.slot("CHANNELNAME"));
 	chnl = chnl.toLowerCase();
-        console.log("Request to put on channel:" + chnl);
+        console.log("Request to put on channel: " + chnl);
         if (typeof channels[chnl] != 'undefined') {
             if(tivoMini) {
                 for(pos = 0 ; pos < channels[chnl].length ; pos++) 
@@ -1048,7 +1059,6 @@ function determinePrefix(command) {
 
 // reset to known location (i.e., TiVo Central)
 function addInitCommands(commands) {
-    //commands.push("GUIDE"); // not sure if this is necessary?
     commands.push("TIVO");
     return commands;
 }
