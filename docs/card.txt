@@ -54,13 +54,13 @@ BOX SELECTION
 ... list boxes (also adds a card to your Alexa app listing your configured TiVo Boxes)
 
 ADVANCED
-... send the command <command>
+... send the <command> command
 
 <command> can be any command defined in the TiVo TCP Remote Protocol. For example:
 - KEYBOARD commands (letters, numbers, etc.)
 - IRCODE commands (thumbs up/down, navigation (up, down, left, right), etc.)
 
-Sending individual commands to the TiVo with Alexa can be cumbersome since each command needs to be issued separately (i.e., 'Alexa, tell TiVo to send the command down', 'Alexa, tell TiVo to send the command select'). For complex interactions, using the physical remote control is the better method.
+Sending individual commands to the TiVo with Alexa can be cumbersome since each command needs to be issued separately (i.e., 'Alexa, tell TiVo to send the down command', 'Alexa, tell TiVo to send the select command'). For complex interactions, using the physical remote control is the better method.
 
 OTHER
 ... for Help: add this card to your Alexa app

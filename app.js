@@ -72,8 +72,6 @@ var KEYBOARD_COMMANDS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", 
 
 var TELEPORT_COMMANDS = ["TIVO", "GUIDE", "NOWPLAYING"];
 
-app.dictionary = {"commands":["UP", "DOWN", "LEFT", "RIGHT", "SELECT", "TIVO", "THUMBSUP", "THUMBSDOWN", "CHANNELUP", "CHANNELDOWN", "MUTE", "VOLUMEDOWN", "VOLUMEUP", "TVINPUT", "OPTIONS", "RECORD", "DISPLAY", "DIRECTV", "ENTER", "CLEAR", "PLAY", "PAUSE", "SLOW", "FORWARD", "REVERSE", "STANDBY", "NOWSHOWING", "REPLAY", "ADVANCE", "DELIMITER", "GUIDE", "KBDUP", "KBDDOWN", "KBDLEFT", "KBDRIGHT", "PAGEUP", "PAGEDOWN", "HOME", "END", "SPACE", "BACKQUOTE", "SLASH", "PERIOD", "COMMA", "QUOTE", "SEMICOLON", "BACKSLASH", "RBRACKET", "LBRACKET", "EQUALS", "MINUS", "CAPS", "LSHIFT", "RSHIFT", "INSERT", "BACKSPACE", "DELETE", "KBDENTER", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]};
-
 
 // intents -------------------------------------------------------------
 
@@ -549,8 +547,8 @@ app.intent('QuickMode',
 
 app.intent('SendCommand',
     {
-        "slots":{"TIVOCOMMAND":"LITERAL"},
-        "utterances":[ "send {the|} {command|} {commands|TIVOCOMMAND}" ]
+        "slots":{"TIVOCOMMAND":"TIVOCOMMAND_SLOT"},
+        "utterances":[ "send {the command|command} {-|TIVOCOMMAND}", "send {the|} {-|TIVOCOMMAND} {command}", "send {-|TIVOCOMMAND}" ]
     },
     function(request,response) {
         var commands = [];
