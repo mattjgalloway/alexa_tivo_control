@@ -30,6 +30,7 @@ CHANGING CHANNELS
 FEATURES
 ... turn on/off captions
 ... turn on/off/toggle QuickMode
+... thumbs up/down
 
 PLACES
 ... go to/show Live TV

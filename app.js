@@ -182,7 +182,7 @@ app.intent('LiveTV',
 app.intent('Guide',
     {
         "slots":{},
-        "utterances":[ "{show|go to|} {the|} guide" ]
+        "utterances":[ "{show|show the|go to|go to the|} {guide}" ]
     },
     function(request,response) {
         var commands = [];
@@ -496,7 +496,7 @@ app.intent('Replay',
 app.intent('Record',
     {
         "slots":{},
-        "utterances":[ "record {this|the|} {show|current show|this}" ]
+        "utterances":[ "record {this|} {show|}", "record the current show" ]
     },
     function(request,response) {
         var commands = [];
@@ -540,6 +540,30 @@ app.intent('QuickMode',
         commands.push("PLAY");
         commands.push("SELECT");
         commands.push("CLEAR");
+        sendCommands(commands);
+    });
+
+app.intent('ThumbsUp',
+    {
+
+        "slots":{},
+        "utterances":[ "thumbs up" ]
+    },
+    function(request,response) {
+        var commands = [];
+        commands.push("THUMBSUP");
+        sendCommands(commands);
+    });
+
+app.intent('ThumbsDown',
+    {
+
+        "slots":{},
+        "utterances":[ "thumbs down" ]
+    },
+    function(request,response) {
+        var commands = [];
+        commands.push("THUMBSDOWN");
         sendCommands(commands);
     });
 
