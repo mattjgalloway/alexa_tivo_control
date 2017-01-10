@@ -26,6 +26,7 @@ CHANGING CHANNELS
 <channel number> must be a channel enabled in your Channel List
 ... put on <channel name>
 <channel name> must be mapped to the proper channel number in your TiVo Control configuration (see channels.json)
+... list my channels (also adds a card to your Alexa app listing your named channels)
 
 FEATURES
 ... turn on/off captions

@@ -31,6 +31,7 @@ var video_provider_status;
 var audio_provider_status;
 var tivoIndex = 0;
 var totalTiVos = Object.keys(config.tivos).length;
+var channelName = ""; 
 
 // set default TiVo (first one in config file)
 updateCurrentTiVoConfig(tivoIndex);
@@ -98,6 +99,18 @@ app.intent('ListEnabledProviders',
         createProviderList();
         response.say(strings.txt_enabledlist + currentTiVoBox + strings.txt_enabledlist2 + speechList + strings.txt_enabledcard);
         response.card("Providers", strings.txt_providercard + currentTiVoBox + strings.txt_providercard2 + cardList + strings.txt_providerfooter);
+    });
+
+app.intent('ListChannels',
+    {
+        "slots":{},
+        "utterances":[ "{for|to} {my channels|my channel list|list my channels|channel|list channels|channel list|list channel names}" ]
+    },
+    function(request,response) {
+        console.log("List of named channels requested, adding card.");
+        createChannelList();
+        response.say(strings.txt_channelscard + speechList + strings.txt_enabledcard);
+        response.card("Channels", strings.txt_channelscard + cardList + strings.txt_channelsfooter);
     });
 
 // BOX SELECTION
@@ -1248,6 +1261,25 @@ function updateCurrentTiVoConfig(tivoIndex) {
     audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].spotify, config.tivos[tivoIndex].vevo];
 
     console.log("Currently controlling: " + currentTiVoBox + " (" + currentTiVoIP + ")");
+}
+
+// generate a list of channels defined in channels.json (for changing by channel name)
+function createChannelList() {
+
+    speechList = "";
+    cardList = "";
+    channelName = "";
+
+    console.log("building list of defined channels");
+    for (channelName in channels) {
+        console.log(channelName + " (" + channels[channelName] + ")");
+        speechList = speechList + ", " + channelName;
+        // uppercase the channel names for a consistent look on the card, and include channel number
+        cardList = cardList + "\n- " + channelName.toUpperCase() + " (" + channels[channelName] + ")";
+    }
+
+    console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
+
 }
 
 module.exports = app;
