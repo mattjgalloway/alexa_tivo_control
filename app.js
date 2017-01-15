@@ -1255,7 +1255,7 @@ function updateCurrentTiVoConfig(tivoIndex) {
     tivoMini = config.tivos[tivoIndex].mini;
 
     // update video provider status
-    video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv];
+    video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv];
  
     // update audio provider status
     audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].spotify, config.tivos[tivoIndex].vevo];
