@@ -366,6 +366,17 @@ app.intent('ForceChannel',
 	return sendCommands(commands, true);
     });
 
+app.intent('LastChannel',
+    {
+        "slots":{},
+        "utterances":[ "{for|} {last|previous} {channel|}" ]
+    },
+    function(request,response) {
+        var commands = [];
+        commands.push("ENTER");
+        sendCommands(commands);
+    });
+
 app.intent('Pause',
     {
         "slots":{},
