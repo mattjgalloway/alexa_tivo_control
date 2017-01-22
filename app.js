@@ -41,9 +41,12 @@ var app = new alexa.app(route);
 
 // verify appId for incoming request
 app.pre = function(request,response,type) {
-    if (request.sessionDetails.application.applicationId!=config.alexaAppId &&
-        request.sessionDetails.application.applicationId!=strings.alexaTestAppId) {
-        response.fail("An invalid applicationId was received.");
+    if (request.hasSession()) {
+        var session = request.getSession();
+        if (session.details.application.applicationId!=config.alexaAppId &&
+            session.details.application.applicationId!=strings.alexaTestAppId) {
+            response.fail("An invalid applicationId was received.");
+        }
     }
 };
 
