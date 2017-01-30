@@ -34,7 +34,8 @@ var tivoIndex = 0;
 var totalTiVos = Object.keys(config.tivos).length;
 var lastTivoBox = tivoIndex;
 var channelName = ""; 
-var tivoboxrm = "";
+var tivoBoxRoom = "";
+var roomFound = false;
 var genres = strings["genres"]
 
 // set default TiVo (first one in config file)
@@ -415,20 +416,23 @@ app.intent('ChangeChannel',
     },
     function(request,response) {
         var commands = [];
-        lastTivoBox = tivoIndex;
-        tivoboxrm = request.slot("TIVOBOXRM");
 
-        setTivoRoom(tivoboxrm);
-        if (tivoMini) {
-            for (pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) {
-                commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+        lastTivoBox = tivoIndex;
+        tivoBoxRoom = request.slot("TIVOBOXRM");
+        roomFound = setTiVoRoom(tivoBoxRoom, response);
+
+        if (roomFound) {
+            if (tivoMini) {
+                for (pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) {
+                    commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+                }
+                commands.push("ENTER");
             }
-            commands.push("ENTER");
+            else {
+	        commands.push("SETCH "+request.slot("TIVOCHANNEL"));
+            }
+	    return sendCommands(commands, true);
         }
-        else {
-	    commands.push("SETCH "+request.slot("TIVOCHANNEL"));
-        }
-	return sendCommands(commands, true);
     });
 
 app.intent('PutOn',
@@ -442,25 +446,29 @@ app.intent('PutOn',
         chnl = chnl.toLowerCase();
         var chnlnum = String(channels[chnl]);
         console.log("Requested to put on channel: " + chnlnum);
+        
         lastTivoBox = tivoIndex;
-        tivoboxrm = request.slot("TIVOBOXRM");
+        tivoBoxRoom = request.slot("TIVOBOXRM");
+        roomFound = setTiVoRoom(tivoBoxRoom, response);
 
-        setTivoRoom(tivoboxrm);
-        if (typeof channels[chnl] != 'undefined') {
-            if (tivoMini) {
-                for (pos = 0; pos < chnlnum.length; pos++) {
-                    commands.push("NUM" + chnlnum.substring(pos,pos+1));
+        if (roomFound) {
+            if (typeof channels[chnl] != 'undefined') {
+                if (tivoMini) {
+                    for (pos = 0; pos < chnlnum.length; pos++) {
+                        commands.push("NUM" + chnlnum.substring(pos,pos+1));
+                    }
+                    commands.push("ENTER");
                 }
-                commands.push("ENTER");
+                else {
+                    commands.push("SETCH " + chnlnum);
+                }
+                return sendCommands(commands, true);
             }
             else {
-                commands.push("SETCH " + chnlnum);
+                console.log("Undefined channel: " + chnl);
+                response.say(strings.txt_undefinedchannel + chnl + strings.txt_undefinedchannel2);
+                setLastTivo();
             }
-            return sendCommands(commands, true);
-        }
-        else {
-            console.log("Undefined channel: " + chnl);
-            response.say(strings.txt_undefinedchannel + chnl + strings.txt_undefinedchannel2);
         }
     });
 	
@@ -471,20 +479,23 @@ app.intent('ForceChannel',
     },
     function(request,response) {
         var commands = [];
-        lastTivoBox = tivoIndex;
-        tivoboxrm = request.slot("TIVOBOXRM");
 
-        setTivoRoom(tivoboxrm);
-        if (tivoMini) {
-            for (pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) {
-                commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+        lastTivoBox = tivoIndex;
+        tivoBoxRoom = request.slot("TIVOBOXRM");
+        setTiVoRoom(tivoBoxRoom, response);
+
+        if (roomFound) {
+            if (tivoMini) {
+                for (pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) {
+                    commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+                }
+                commands.push("ENTER");
             }
-            commands.push("ENTER");
+            else {
+                commands.push("FORCECH "+request.slot("TIVOCHANNEL"));
+            }
+            return sendCommands(commands, true);
         }
-        else {
-            commands.push("FORCECH "+request.slot("TIVOCHANNEL"));
-        }
-        return sendCommands(commands, true);
     });
 
 app.intent('LastChannel',
@@ -1402,11 +1413,11 @@ function createTiVoBoxList() {
 
 }
 
-function setTivoRoom(tivoboxrm) {
+function setTiVoRoom(tivoBoxRoom, response) {
 
-    if (tivoboxrm != undefined) { 
+    if (tivoBoxRoom != undefined) { 
         console.log("Last Tivo box index: " + tivoIndex);
-        currentTiVoBox = tivoboxrm;
+        currentTiVoBox = tivoBoxRoom;
         console.log("Control requested for '" + currentTiVoBox + "' TiVo.");
 
         // confirm selected TiVo exists in config.json
@@ -1415,12 +1426,19 @@ function setTivoRoom(tivoboxrm) {
         if (tivoIndex < 0) {
             // the requested TiVo doesn't exist in the config file
             console.log("Undefined TiVo requested. Switching back to default.");
-            response.say(strings.txt_undefinedtivo);
+            response.say(strings.txt_undefinedtivo + tivoBoxRoom + strings.txt_undefinedtivo2);
             tivoIndex = 0;
+            updateCurrentTiVoConfig(tivoIndex);
+            return false;
         }
         else {
             updateCurrentTiVoConfig(tivoIndex);
+            return true;
         }
+    }
+    else {
+        // no room specified, allow command to go to current tivo
+        return true;
     }
 
 }
