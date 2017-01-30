@@ -44,7 +44,10 @@
   "txt_undefinedchannel": "Sorry, I couldn't find a channel named ",
   "txt_undefinedchannel2": " in your TiVo Control channel mapping file.",
   "txt_channelscard": "Here's a list of channels you can put on by name. The channels are sorted by ",
-  "txt_channelsfooter": "\n\nYou must update your channels.json file in the TiVo Control directory with any channel names (and their corresponding numbers) that you want to be able to switch to by name.",
+  "txt_channelsfooter": "\n\nYou must update your channels.json file in the TiVo Control directory with any channel names (and their corresponding numbers) that you want to be able to switch to by name. Use the chnllist.json file to control which channels are read aloud and displayed on this help card.",
+  "txt_listtoolong": "Your channel list is too long to list. Try listing channels by genre instead",
+  "txt_genrecard": "Here's a list of genres you can use to filter your channel list.",
+  "txt_genrefooter": "\n\nYou can customize this list by editing the genres string in constants.json.",
 
   "alexaTestAppId": "amzn1.echo-sdk-ams.app.000000-d0ed-0000-ad00-000000d00ebe"
 }

@@ -36,7 +36,7 @@ var lastTivoBox = tivoIndex;
 var channelName = ""; 
 var tivoBoxRoom = "";
 var roomFound = false;
-var genres = strings["genres"]
+var genres = strings["genres"];
 
 // set default TiVo (first one in config file)
 updateCurrentTiVoConfig(tivoIndex);
@@ -123,11 +123,11 @@ app.intent('ListChannels',
             createChannelList(genre);
         } else if (genres.indexOf(genre) < 0) {
             console.log("Genre selected: " + genre);
-            response.say("Selected genre not found. Genres available are ." + genres + strings.txt_enabledcard);
+            response.say("Requested genre not found. Genres available are ." + genres + strings.txt_enabledcard);
             genres = genres.toUpperCase();
-            genres = genres.replace(/\,\ /g, "\n-");
-            console.log("List of genres:\n-" + genres);
-            response.card("Channel Genres", "\n-" + genres);
+            genres = genres.replace(/\,\ /g, "\n- ");
+            console.log("List of genres:\n- " + genres);
+            response.card("Channel Genres", strings.txt_genrecard + "\n\n- " + genres + strings.txt_genrefooter);
             return
         } else {
             createChannelList(genre);
@@ -145,9 +145,9 @@ app.intent('ListGenres',
         genres = genres.toUpperCase();
         console.log("List of channel genres requested, adding card.");
         response.say("Your channel genres are ." + genres + strings.txt_enabledcard);
-        genres = genres.replace(/\,\ /g, "\n-");
-        console.log("List of genres:\n-" + genres);
-        response.card("Channel Genres", "\n-" + genres);
+        genres = genres.replace(/\,\ /g, "\n- ");
+        console.log("List of genres:\n- " + genres);
+        response.card("Channel Genres", strings.txt_genrecard + "\n\n- " + genres + strings.txt_genrefooter);
     });
 	
 // BOX SELECTION
@@ -1496,8 +1496,8 @@ function createChannelList(genre) {
     for (channelName in chnllist) {
         if (linecount == 97 ) {
             console.log("Channel list is too long.");
-            speechList = speechList + ", " + "Channel list exceeds card maximum length. Try listing channels by genre.";
-            cardList = cardList + "\n\n\nChannel list exceeds card maximum length. Try listing channels by genre...";
+            speechList = speechList + ", " + strings.txt_listtoolong;
+            cardList = cardList + "\n\n\n" + strings.txt_listtoolong;
             return
         }
 		
