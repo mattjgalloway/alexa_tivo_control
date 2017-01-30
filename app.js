@@ -114,39 +114,39 @@ app.intent('ListChannels',
         "utterances":[ "{for|to} {my channels|my channel list|list my channels|list channels|channel list|list channel names} {for +GENRE+|by +GENRE+|}" ]
     },
     function(request,response) {
-		var genre = String(request.slot("GENRE"));
-		genre = genre.toLowerCase();
+        var genre = String(request.slot("GENRE"));
+        genre = genre.toLowerCase();
         console.log("List of named channels requested, adding card.");
-		if ( genre == 'undefined' ) {
-			genre = "all";
-			createChannelList(genre);
-		} else if ( genres.indexOf(genre) < 0 ) {
-			console.log("Genre selected: " + genre);
-			response.say("Selected genre not found. Genres available are ." + genres + strings.txt_enabledcard);
-			genres = genres.toUpperCase();
-			genres = genres.replace(/\,\ /g, "\n-");
-			console.log("List of genres:\n-" + genres);
-			response.card("Channel Genres", "\n-" + genres);
-			return
-		} else {
-			createChannelList(genre);
-		}
+        if (genre == 'undefined') {
+            genre = "all";
+            createChannelList(genre);
+        } else if (genres.indexOf(genre) < 0) {
+            console.log("Genre selected: " + genre);
+            response.say("Selected genre not found. Genres available are ." + genres + strings.txt_enabledcard);
+            genres = genres.toUpperCase();
+            genres = genres.replace(/\,\ /g, "\n-");
+            console.log("List of genres:\n-" + genres);
+            response.card("Channel Genres", "\n-" + genres);
+            return
+        } else {
+            createChannelList(genre);
+        }
         response.say(strings.txt_channelscard + genre + "." + speechList + strings.txt_enabledcard);
-		response.card("Channels  (" + genre + ")", strings.txt_channelscard + genre + "." + cardList + strings.txt_channelsfooter);
+        response.card("Channels  (" + genre + ")", strings.txt_channelscard + genre + "." + cardList + strings.txt_channelsfooter);
     });
 	
-	app.intent('ListGenres',
+app.intent('ListGenres',
     {
         "slots":{},
         "utterances":[ "{for|to} {my genres|my channel genres|list my genres|list genres|genres list}" ]
     },
     function(request,response) {
-		genres = genres.toUpperCase();
+        genres = genres.toUpperCase();
         console.log("List of channel genres requested, adding card.");
         response.say("Your channel genres are ." + genres + strings.txt_enabledcard);
-		genres = genres.replace(/\,\ /g, "\n-");
-		console.log("List of genres:\n-" + genres);
-		response.card("Channel Genres", "\n-" + genres);
+        genres = genres.replace(/\,\ /g, "\n-");
+        console.log("List of genres:\n-" + genres);
+        response.card("Channel Genres", "\n-" + genres);
     });
 	
 // BOX SELECTION
@@ -282,37 +282,37 @@ app.intent('Search',
     },
     function(request,response) {
         var commands = [];
-		var TIVOSEARCHREQMOVIE = String(request.slot("TIVOSEARCHREQMOVIE"));
-		var TIVOSEARCHREQTVSERIES = String(request.slot("TIVOSEARCHREQTVSERIES"));
-		var j = 0;
-		TIVOSEARCHREQMOVIE = TIVOSEARCHREQMOVIE.toUpperCase();
-		TIVOSEARCHREQTVSERIES = TIVOSEARCHREQTVSERIES.toUpperCase();
-		console.log(TIVOSEARCHREQMOVIE);
-		console.log(TIVOSEARCHREQTVSERIES);
+        var TIVOSEARCHREQMOVIE = String(request.slot("TIVOSEARCHREQMOVIE"));
+        var TIVOSEARCHREQTVSERIES = String(request.slot("TIVOSEARCHREQTVSERIES"));
+        var j = 0;
+        TIVOSEARCHREQMOVIE = TIVOSEARCHREQMOVIE.toUpperCase();
+        TIVOSEARCHREQTVSERIES = TIVOSEARCHREQTVSERIES.toUpperCase();
+        console.log(TIVOSEARCHREQMOVIE);
+        console.log(TIVOSEARCHREQTVSERIES);
         commands.push("TIVO");
         commands.push("NUM4");
-		if( TIVOSEARCHREQMOVIE != 'UNDEFINED') {
-			console.log("Movie Search");
-			for ( i = 0; i < TIVOSEARCHREQMOVIE.length; i++) {
-				j = i + 1;
-				if ( TIVOSEARCHREQMOVIE.substring(i, j) == " ") {
-					commands.push("SPACE");
-				} else {
-					commands.push(TIVOSEARCHREQMOVIE.substring(i, j));
-				}
-			}
-		}
-		if( TIVOSEARCHREQTVSERIES != 'UNDEFINED') {
-			console.log("Television Search");
-			for ( i = 0; i < TIVOSEARCHREQTVSERIES.length; i++) {
-				j = i + 1;
-				if ( TIVOSEARCHREQTVSERIES.substring(i, j) == " ") {
-					commands.push("SPACE");
-				} else {
-					commands.push(TIVOSEARCHREQTVSERIES.substring(i, j));
-				}
-			}
-		}
+        if (TIVOSEARCHREQMOVIE != 'UNDEFINED') {
+            console.log("Movie Search");
+            for (i = 0; i < TIVOSEARCHREQMOVIE.length; i++) {
+                j = i + 1;
+                if (TIVOSEARCHREQMOVIE.substring(i, j) == " ") {
+                    commands.push("SPACE");
+                } else {
+                    commands.push(TIVOSEARCHREQMOVIE.substring(i, j));
+                }
+            }
+        }
+        if (TIVOSEARCHREQTVSERIES != 'UNDEFINED') {
+            console.log("Television Search");
+            for (i = 0; i < TIVOSEARCHREQTVSERIES.length; i++) {
+                j = i + 1;
+                if (TIVOSEARCHREQTVSERIES.substring(i, j) == " ") {
+                    commands.push("SPACE");
+                } else {
+                    commands.push(TIVOSEARCHREQTVSERIES.substring(i, j));
+                }
+            }
+        }
         sendCommands(commands);
     });
 
@@ -323,35 +323,35 @@ app.intent('Type',
     },
     function(request,response) {
         var commands = [];
-		var TIVOTYPEREQMOVIE = String(request.slot("TIVOTYPEREQMOVIE"));
-		var TIVOTYPEREQTVSERIES = String(request.slot("TIVOTYPEREQTVSERIES"));
-		var j = 0;
-		TIVOTYPEREQMOVIE = TIVOTYPEREQMOVIE.toUpperCase();
-		TIVOTYPEREQTVSERIES = TIVOTYPEREQTVSERIES.toUpperCase();
-		console.log(TIVOTYPEREQMOVIE);
-		console.log(TIVOTYPEREQTVSERIES);
-		if( TIVOTYPEREQMOVIE != 'UNDEFINED') {
-			console.log("Type Movie");
-			for ( i = 0; i < TIVOTYPEREQMOVIE.length; i++) {
-				j = i + 1;
-				if ( TIVOTYPEREQMOVIE.substring(i, j) == " ") {
-					commands.push("SPACE");
-				} else {
-					commands.push(TIVOTYPEREQMOVIE.substring(i, j));
-				}
-			}
-		}
-		if( TIVOTYPEREQTVSERIES != 'UNDEFINED') {
-			console.log("Type Television");
-			for ( i = 0; i < TIVOTYPEREQTVSERIES.length; i++) {
-				j = i + 1;
-				if ( TIVOTYPEREQTVSERIES.substring(i, j) == " ") {
-					commands.push("SPACE");
-				} else {
-					commands.push(TIVOTYPEREQTVSERIES.substring(i, j));
-				}
-			}
-		}
+        var TIVOTYPEREQMOVIE = String(request.slot("TIVOTYPEREQMOVIE"));
+        var TIVOTYPEREQTVSERIES = String(request.slot("TIVOTYPEREQTVSERIES"));
+        var j = 0;
+        TIVOTYPEREQMOVIE = TIVOTYPEREQMOVIE.toUpperCase();
+        TIVOTYPEREQTVSERIES = TIVOTYPEREQTVSERIES.toUpperCase();
+        console.log(TIVOTYPEREQMOVIE);
+        console.log(TIVOTYPEREQTVSERIES);
+        if (TIVOTYPEREQMOVIE != 'UNDEFINED') {
+            console.log("Type Movie");
+            for (i = 0; i < TIVOTYPEREQMOVIE.length; i++) {
+                j = i + 1;
+                if (TIVOTYPEREQMOVIE.substring(i, j) == " ") {
+                    commands.push("SPACE");
+                } else {
+                    commands.push(TIVOTYPEREQMOVIE.substring(i, j));
+                }
+            }
+        }
+        if (TIVOTYPEREQTVSERIES != 'UNDEFINED') {
+            console.log("Type Television");
+            for (i = 0; i < TIVOTYPEREQTVSERIES.length; i++) {
+                j = i + 1;
+                if (TIVOTYPEREQTVSERIES.substring(i, j) == " ") {
+                    commands.push("SPACE");
+                } else {
+                    commands.push(TIVOTYPEREQTVSERIES.substring(i, j));
+                }
+            }
+        }
         sendCommands(commands);
     });
 
@@ -399,8 +399,9 @@ app.intent('WhatToWatch',
         var commands = [];
         commands.push("TIVO");
         commands.push("DOWN");
-        if(tivoMini) 
+        if (tivoMini) {
             commands.push("DOWN");
+        }
         commands.push("RIGHT");
         sendCommands(commands);
     });
@@ -413,14 +414,15 @@ app.intent('ChangeChannel',
         "utterances":[ "{change|go to} channel {to|} {1-100|TIVOCHANNEL} {in +TIVOBOXRM+|on +TIVOBOXRM+|}" ]
     },
     function(request,response) {
-	var commands = [];
-	lastTivoBox = tivoIndex;
-	tivoboxrm = request.slot("TIVOBOXRM");
-	
-	setTivoRoom(tivoboxrm);
-        if(tivoMini) {
-            for(pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) 
-	        commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+        var commands = [];
+        lastTivoBox = tivoIndex;
+        tivoboxrm = request.slot("TIVOBOXRM");
+
+        setTivoRoom(tivoboxrm);
+        if (tivoMini) {
+            for (pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) {
+                commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+            }
             commands.push("ENTER");
         }
         else {
@@ -432,36 +434,35 @@ app.intent('ChangeChannel',
 app.intent('PutOn',
     {
         "slots":{"CHANNELNAME":"AMAZON.TelevisionChannel","TIVOBOXRM":"AMAZON.Room"},
-		"utterances":[ "put {on|} {-|CHANNELNAME} {in +TIVOBOXRM+|on +TIVOBOXRM+|}" ]
+        "utterances":[ "put {on|} {-|CHANNELNAME} {in +TIVOBOXRM+|on +TIVOBOXRM+|}" ]
     },
     function(request,response) {
-	var commands = [];
-	var chnl = String(request.slot("CHANNELNAME"));
-	chnl = chnl.toLowerCase();
-	var chnlnum = String(channels[chnl]);
-	console.log("Requested to put on channel: " + chnlnum);
-    lastTivoBox = tivoIndex;
-	tivoboxrm = request.slot("TIVOBOXRM");
-	
-	setTivoRoom(tivoboxrm);
-	
-	if (typeof channels[chnl] != 'undefined' ) {
-		if(tivoMini) {
-			for(pos = 0; pos < chnlnum.length; pos++){
-				commands.push("NUM" + chnlnum.substring(pos,pos+1));
-				commands.push("ENTER");
-			}
-		}
-		else {
-			commands.push("SETCH " + chnlnum);
-		}
-		return sendCommands(commands, true);
-	}
-	else {
-		console.log("Undefined channel: " + chnl);
-		response.say(strings.txt_undefinedchannel + chnl + strings.txt_undefinedchannel2);
-	}
-	});
+        var commands = [];
+        var chnl = String(request.slot("CHANNELNAME"));
+        chnl = chnl.toLowerCase();
+        var chnlnum = String(channels[chnl]);
+        console.log("Requested to put on channel: " + chnlnum);
+        lastTivoBox = tivoIndex;
+        tivoboxrm = request.slot("TIVOBOXRM");
+
+        setTivoRoom(tivoboxrm);
+        if (typeof channels[chnl] != 'undefined') {
+            if (tivoMini) {
+                for (pos = 0; pos < chnlnum.length; pos++) {
+                    commands.push("NUM" + chnlnum.substring(pos,pos+1));
+                }
+                commands.push("ENTER");
+            }
+            else {
+                commands.push("SETCH " + chnlnum);
+            }
+            return sendCommands(commands, true);
+        }
+        else {
+            console.log("Undefined channel: " + chnl);
+            response.say(strings.txt_undefinedchannel + chnl + strings.txt_undefinedchannel2);
+        }
+    });
 	
 app.intent('ForceChannel',
     {
@@ -469,21 +470,21 @@ app.intent('ForceChannel',
         "utterances":[ "force channel {to|} {1-100|TIVOCHANNEL} {in +TIVOBOXRM+|on +TIVOBOXRM+|}" ]
     },
     function(request,response) {
-	var commands = [];
-	lastTivoBox = tivoIndex;
-	tivoboxrm = request.slot("TIVOBOXRM");
-	
-	setTivoRoom(tivoboxrm);
-	
-        if(tivoMini) {
-            for(pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) 
-	        commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+        var commands = [];
+        lastTivoBox = tivoIndex;
+        tivoboxrm = request.slot("TIVOBOXRM");
+
+        setTivoRoom(tivoboxrm);
+        if (tivoMini) {
+            for (pos = 0 ; pos < request.slot("TIVOCHANNEL").length ; pos++) {
+                commands.push("NUM"+request.slot("TIVOCHANNEL").substring(pos,pos+1));
+            }
             commands.push("ENTER");
         }
         else {
-	    commands.push("FORCECH "+request.slot("TIVOCHANNEL"));
+            commands.push("FORCECH "+request.slot("TIVOCHANNEL"));
         }
-	return sendCommands(commands, true);
+        return sendCommands(commands, true);
     });
 
 app.intent('LastChannel',
@@ -742,7 +743,7 @@ app.intent('HBOGo',
         }
         else {
             response.say(strings.hbogo + strings.txt_notenabled);
-		}
+        }
     });
 
 app.intent('Xfinity',
@@ -761,7 +762,7 @@ app.intent('Xfinity',
         }
         else {
             response.say(strings.xfinityondemand + strings.txt_notenabled);
-		}
+        }
     });
 
 app.intent('Amazon',
@@ -780,7 +781,7 @@ app.intent('Amazon',
         }
         else {
             response.say(strings.amazon + strings.txt_notenabled);
-		}
+        }
     });
 
 app.intent('Netflix',
@@ -799,7 +800,7 @@ app.intent('Netflix',
         }
         else {
             response.say(strings.netflix + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('Hulu',
@@ -818,7 +819,7 @@ app.intent('Hulu',
         }
         else {
             response.say(strings.hulu + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('YouTube',
@@ -837,7 +838,7 @@ app.intent('YouTube',
         }
         else {
             response.say(strings.youtube + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('MLBTV',
@@ -856,7 +857,7 @@ app.intent('MLBTV',
         }
         else {
             response.say(strings.mlbtv + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('Plex',
@@ -875,7 +876,7 @@ app.intent('Plex',
         }
         else {
             response.say(strings.plex + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('VUDU',
@@ -894,7 +895,7 @@ app.intent('VUDU',
         }
         else {
             response.say(strings.vudu + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('HSN',
@@ -913,7 +914,7 @@ app.intent('HSN',
         }
         else {
             response.say(strings.hsn + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('ALTChannel',
@@ -932,7 +933,7 @@ app.intent('ALTChannel',
         }
         else {
             response.say(strings.alt + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('FlixFling',
@@ -951,7 +952,7 @@ app.intent('FlixFling',
         }
         else {
             response.say(strings.flixfling + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('ToonGoggles',
@@ -970,7 +971,7 @@ app.intent('ToonGoggles',
         }
         else {
             response.say(strings.toongoggles + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('WWE',
@@ -989,7 +990,7 @@ app.intent('WWE',
         }
         else {
             response.say(strings.wwe + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('Yahoo',
@@ -1008,7 +1009,7 @@ app.intent('Yahoo',
         }
         else {
             response.say(strings.yahoo + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('YuppTV',
@@ -1027,7 +1028,7 @@ app.intent('YuppTV',
         }
         else {
             response.say(strings.yupptv + strings.txt_notenabled);
-		}
+        }
     });
 	
 // AUDIO PROVIDERS
@@ -1048,7 +1049,7 @@ app.intent('Pandora',
         }
         else {
             response.say(strings.pandora + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('Spotify',
@@ -1067,7 +1068,7 @@ app.intent('Spotify',
         }
         else {
             response.say(strings.spotify + strings.txt_notenabled);
-		}
+        }
     });
 	
 app.intent('iHeartRadio',
@@ -1086,7 +1087,7 @@ app.intent('iHeartRadio',
         }
         else {
             response.say(strings.iheartradio + strings.txt_notenabled);
-		}
+        }
     });
 
 app.intent('Vevo',
@@ -1105,7 +1106,7 @@ app.intent('Vevo',
         }
         else {
             response.say(strings.vevo + strings.txt_notenabled);
-		}
+        }
     });
 
 app.intent('PlexMusic',
@@ -1124,7 +1125,7 @@ app.intent('PlexMusic',
         }
         else {
             response.say(strings.plex_m + strings.txt_notenabled);
-		}
+        }
     });
 
 // functions -----------------------------------------------------------
@@ -1132,58 +1133,58 @@ app.intent('PlexMusic',
 function sendNextCommand () {
 
     clearInterval(interval);
-    if(queuedCommands.length == 0) {
+    if (queuedCommands.length == 0) {
 	// the queue is empty, disconnect
-        if(typeof telnetSocket != "undefined" && typeof telnetSocket.end != "undefined") {
+        if (typeof telnetSocket != "undefined" && typeof telnetSocket.end != "undefined") {
             telnetSocket.end();
             telnetSocket.destroy();
-			console.log("Connection Closed");
-			if(lastTivoBox != tivoIndex) {
-				setLastTivo();
-			}
-		}
+            console.log("Connection Closed");
+            if (lastTivoBox != tivoIndex) {
+                setLastTivo();
+            }
+        }
         socketOpen = false;
     }
     else {
         var command = queuedCommands.shift();
         var timeToWait = 300;
-        if(queuedCommands[0] == "RIGHT" || queuedCommands[0] == "ENTER") {
-	    // wait slightly longer to allow for screen changes
-            if(tivoMini) {
+        if (queuedCommands[0] == "RIGHT" || queuedCommands[0] == "ENTER") {
+            // wait slightly longer to allow for screen changes
+            if (tivoMini) {
                 timeToWait = 1100;
             } else {
                 timeToWait = 800;
-			}
-		}
+            }
+        }
 	
-		if(typeof command == "object" && typeof command["explicit"] != "undefined") {
-			// when explicit is true, send the full command as passed
-			console.log("Sending Explicit Command: " + command["command"].toUpperCase());
-			telnetSocket.write(command["command"].toUpperCase() + "\r");
-			if(command.indexOf("TELEPORT")) {
-				timeToWait = 700;
-			}
-		} else {
-			// when explicit is false, add the proper command prefix (IRCODE, KEYBOARD, etc.)
-			if(typeof command == "object") {
-				command = command["command"];
-			}
-		
-			var prefix = determinePrefix(command);
-			if(prefix === false) {
-				console.log("ERROR: Command Not Supported: " + command);
-				telnetSocket.end();
-			}
-			else {
-				console.log("Sending Prefixed Command: "+prefix + " " + command.toUpperCase());
-				telnetSocket.write(prefix + " " + command.toUpperCase() + "\r");
-			}
-			if(prefix == "TELEPORT") {
-				timeToWait = 700;
-			}
-		}
-		setTimeout(sendNextCommand, timeToWait);
-	}
+        if (typeof command == "object" && typeof command["explicit"] != "undefined") {
+            // when explicit is true, send the full command as passed
+            console.log("Sending Explicit Command: " + command["command"].toUpperCase());
+            telnetSocket.write(command["command"].toUpperCase() + "\r");
+            if (command.indexOf("TELEPORT")) {
+                timeToWait = 700;
+            }
+        } else {
+            // when explicit is false, add the proper command prefix (IRCODE, KEYBOARD, etc.)
+            if (typeof command == "object") {
+                command = command["command"];
+            }
+
+            var prefix = determinePrefix(command);
+            if (prefix === false) {
+                console.log("ERROR: Command Not Supported: " + command);
+                telnetSocket.end();
+            }
+            else {
+                console.log("Sending Prefixed Command: "+prefix + " " + command.toUpperCase());
+                telnetSocket.write(prefix + " " + command.toUpperCase() + "\r");
+            }
+            if (prefix == "TELEPORT") {
+                timeToWait = 700;
+            }
+        }
+        setTimeout(sendNextCommand, timeToWait);
+    }
 }
 
 // send a series of queued-up commands to the TiVo (with delays in-between)
@@ -1194,7 +1195,7 @@ function sendCommands(commands) {
 
     // move the list of passed-in commands into queuedCommands
     queuedCommands = [];
-    for(var i=0; i<commands.length; i++) {
+    for (var i=0; i<commands.length; i++) {
         queuedCommands.push(commands[i]);
     }
     console.log("QueuedCommands: "+queuedCommands.join(","));
@@ -1213,47 +1214,47 @@ function sendCommands(commands) {
 
     // data received back from TiVo (usually indicates command sent during Live TV)
     telnetSocket.on('data', function(data) {
-        if(noResponse) {
+        if (noResponse) {
             noResponse = false;
             console.log("RECEIVED: "+data.toString());
             interval = setInterval(sendNextCommand, 300);
         }
     });
 
-	// timeout; send next command if the connection is still open
-	telnetSocket.on('timeout', function(data) {
-		console.log("TIMEOUT RECEIVED");
-		if(socketOpen) {
-			sendNextCommand();
-		}
-	});
+    // timeout; send next command if the connection is still open
+    telnetSocket.on('timeout', function(data) {
+    console.log("TIMEOUT RECEIVED");
+        if (socketOpen) {
+            sendNextCommand();
+        }
+    });
 
-	// connection has been closed
-	telnetSocket.on('end', function(data) {
-		socketOpen = false;
-	});
-	noResponse = true;
+    // connection has been closed
+    telnetSocket.on('end', function(data) {
+        socketOpen = false;
+    });
+    noResponse = true;
 
-	setTimeout(function(){
-		if(noResponse) {
-			setTimeout(sendNextCommand, 700);
-		}
-	}, 700);
+    setTimeout(function() {
+        if (noResponse) {
+            setTimeout(sendNextCommand, 700);
+        }
+    }, 700);
 }
 
 // determine prefix for a command
 function determinePrefix(command) {
-	if(TELEPORT_COMMANDS.indexOf(command) != -1) {
-		return "TELEPORT";
-	} else if(IRCODE_COMMANDS.indexOf(command) != -1) {
-		return "IRCODE";
-	} else if(KEYBOARD_COMMANDS.indexOf(command) != -1) {
-		return "KEYBOARD";
-	} else if ((command.substring(0,5) == "SETCH") || (command.substring(0,7) == "FORCECH")) {
-	return "";
-	} else {
-		return false;
-	}
+    if (TELEPORT_COMMANDS.indexOf(command) != -1) {
+        return "TELEPORT";
+    } else if (IRCODE_COMMANDS.indexOf(command) != -1) {
+        return "IRCODE";
+    } else if (KEYBOARD_COMMANDS.indexOf(command) != -1) {
+        return "KEYBOARD";
+    } else if ((command.substring(0,5) == "SETCH") || (command.substring(0,7) == "FORCECH")) {
+        return "";
+    } else {
+        return false;
+    }
 }
 
 // reset to known location (i.e., TiVo Central)
@@ -1266,7 +1267,7 @@ function addInitCommands(commands) {
 function openMediaCommands(commands) {
     commands.push("DOWN");
     commands.push("DOWN");
-    if(tivoMini) {
+    if (tivoMini) {
         commands.push("DOWN");
     }
     commands.push("RIGHT");
@@ -1281,7 +1282,7 @@ function openMusicCommands(commands) {
     commands.push("DOWN");
     commands.push("DOWN");
     commands.push("DOWN");
-    if(tivoMini) {
+    if (tivoMini) {
         commands.push("DOWN");
     }
     commands.push("RIGHT");
@@ -1317,8 +1318,8 @@ function buildProviderNavigation(provider, commands) {
             } else {
                 commands.push("DOWN");
             }
-		}
-	}
+        }
+    }
     commands.push("RIGHT");
     return commands;
 }
@@ -1342,7 +1343,7 @@ function checkProviderEnabled(provider) {
         console.log("- enabled");
     } else {
         console.log("- disabled");
-	}
+    }
 
     return provider_status[provider_loc];
 }
@@ -1390,11 +1391,11 @@ function createTiVoBoxList() {
         // indicate default TiVo box
         if (i == 0) {
             cardList = cardList + " (default)";
-		}
+        }
         // indicate current TiVo box
         if (i == tivoIndex) {
             cardList = cardList + " [current]";
-		}
+        }
     }
 
     console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
@@ -1402,30 +1403,34 @@ function createTiVoBoxList() {
 }
 
 function setTivoRoom(tivoboxrm) {
-	if(tivoboxrm != undefined) { 
-		console.log("Last Tivo box index: " + tivoIndex);
-		currentTiVoBox = tivoboxrm;
-		console.log("Control requested for '" + currentTiVoBox + "' TiVo.");
-		
-		// confirm selected TiVo exists in config.json
-		tivoIndex = findTiVoBoxConfig(currentTiVoBox);
 
-		if (tivoIndex < 0) {
-			// the requested TiVo doesn't exist in the config file
-			console.log("Undefined TiVo requested. Switching back to default.");
-			response.say(strings.txt_undefinedtivo);
-			tivoIndex = 0;
-		}
-		else {
-			updateCurrentTiVoConfig(tivoIndex);
-		}
-	}
+    if (tivoboxrm != undefined) { 
+        console.log("Last Tivo box index: " + tivoIndex);
+        currentTiVoBox = tivoboxrm;
+        console.log("Control requested for '" + currentTiVoBox + "' TiVo.");
+
+        // confirm selected TiVo exists in config.json
+        tivoIndex = findTiVoBoxConfig(currentTiVoBox);
+
+        if (tivoIndex < 0) {
+            // the requested TiVo doesn't exist in the config file
+            console.log("Undefined TiVo requested. Switching back to default.");
+            response.say(strings.txt_undefinedtivo);
+            tivoIndex = 0;
+        }
+        else {
+            updateCurrentTiVoConfig(tivoIndex);
+        }
+    }
+
 }
 
 function setLastTivo() {
-	console.log("Setting last Tivo");
-	tivoIndex = lastTivoBox;
-	updateCurrentTiVoConfig(tivoIndex);
+
+    console.log("Setting last Tivo");
+    tivoIndex = lastTivoBox;
+    updateCurrentTiVoConfig(tivoIndex);
+
 }
 
 // find the index of the requested TiVo in the config file
@@ -1471,26 +1476,26 @@ function createChannelList(genre) {
     console.log("building list of defined channels");
     console.log("Genre: " + genre );
     for (channelName in chnllist) {
-		if (linecount == 97 ) {
-			console.log("Channel list is too long.");
-			speechList = speechList + ", " + "Channel list exceeds card maximum length. Try listing channels by genre.";
-			cardList = cardList + "\n\n\nChannel list exceeds card maximum length. Try listing channels by genre...";
-			return
-		}
+        if (linecount == 97 ) {
+            console.log("Channel list is too long.");
+            speechList = speechList + ", " + "Channel list exceeds card maximum length. Try listing channels by genre.";
+            cardList = cardList + "\n\n\nChannel list exceeds card maximum length. Try listing channels by genre...";
+            return
+        }
 		
-		if ( chnllist[channelName].genre == genre ) {
-			linecount++;
-			console.log(chnllist[channelName].name + " (" + chnllist[channelName].channel + ")");
-			speechList = speechList + ", " + chnllist[channelName].pronounce;
-			// uppercase the channel names for a consistent look on the card, and include channel number
-			cardList = cardList + "\n- " + chnllist[channelName].name.toUpperCase() + " (" + chnllist[channelName].channel + ")";
-		} else if ( genres.indexOf(genre) < 0 | genre == "all" ) {
-			linecount++;
-			console.log(chnllist[channelName].name + " (" + chnllist[channelName].channel + ")");
-			speechList = speechList + ", " + chnllist[channelName].pronounce;
-			// uppercase the channel names for a consistent look on the card, and include channel number
-			cardList = cardList + "\n- " + chnllist[channelName].name.toUpperCase() + " (" + chnllist[channelName].channel + ")";
-		}
+        if (chnllist[channelName].genre == genre) {
+            linecount++;
+            console.log(chnllist[channelName].name + " (" + chnllist[channelName].channel + ")");
+            speechList = speechList + ", " + chnllist[channelName].pronounce;
+            // uppercase the channel names for a consistent look on the card, and include channel number
+            cardList = cardList + "\n- " + chnllist[channelName].name.toUpperCase() + " (" + chnllist[channelName].channel + ")";
+        } else if (genres.indexOf(genre) < 0 | genre == "all") {
+            linecount++;
+            console.log(chnllist[channelName].name + " (" + chnllist[channelName].channel + ")");
+            speechList = speechList + ", " + chnllist[channelName].pronounce;
+            // uppercase the channel names for a consistent look on the card, and include channel number
+            cardList = cardList + "\n- " + chnllist[channelName].name.toUpperCase() + " (" + chnllist[channelName].channel + ")";
+        }
     }
     console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
 
