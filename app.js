@@ -128,6 +128,7 @@ app.intent('ListChannels',
             genres = genres.replace(/\,\ /g, "\n- ");
             console.log("List of genres:\n- " + genres);
             response.card("Channel Genres", strings.txt_genrecard + "\n\n- " + genres + strings.txt_genrefooter);
+            genres = genres.toLowerCase();
             return
         } else {
             createChannelList(genre);
@@ -148,6 +149,7 @@ app.intent('ListGenres',
         genres = genres.replace(/\,\ /g, "\n- ");
         console.log("List of genres:\n- " + genres);
         response.card("Channel Genres", strings.txt_genrecard + "\n\n- " + genres + strings.txt_genrefooter);
+        genres = genres.toLowerCase();
     });
 	
 // BOX SELECTION
