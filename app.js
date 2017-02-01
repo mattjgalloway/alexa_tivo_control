@@ -133,8 +133,8 @@ app.intent('ListChannels',
         } else {
             createChannelList(genre);
         }
-        response.say(strings.txt_channelscard + genre + "." + speechList + strings.txt_enabledcard);
-        response.card("Channels  (" + genre + ")", strings.txt_channelscard + genre + "." + cardList + strings.txt_channelsfooter);
+        response.say(strings.txt_channelscard + genre + strings.txt_channelscard2 + speechList + strings.txt_enabledcard);
+        response.card("Channels  (" + genre + ")", strings.txt_channelscard + genre + strings.txt_channelscard2 + cardList + strings.txt_channelsfooter);
     });
 	
 app.intent('ListGenres',
