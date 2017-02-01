@@ -5,7 +5,7 @@ of your Alexa skill and paste in the list of values below.
 This is basically a list of commands in the TiVo TCP Protocol not covered by 
 other utterances that can be used by the "send command" command. Since some 
 of these aren't pronounceable (i.e., KBDDOWN) they probably won't be 
-recognizedi and processed, but they're here for completeness.
+recognized and processed, but they're here for completeness.
 ---- REMOVE BETWEEN THESE LINES ----
 
 UP
