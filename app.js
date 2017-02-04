@@ -181,6 +181,7 @@ app.intent('ChangeTiVoBox',
         }
 
         updateCurrentTiVoConfig(tivoIndex);
+        lastTivoBox = tivoIndex;
         response.say("Currently controlling your " + currentTiVoBox + " TiVo.");
     });
 
