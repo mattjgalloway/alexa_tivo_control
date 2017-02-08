@@ -28,7 +28,7 @@ CHANGING CHANNELS
 <channel name> must be mapped to the proper channel number in your TiVo Control configuration (see channels.json)
 ... last/previous channel
 ... list my channels (by <genre>) (also adds a card to your Alexa app listing your named channels)
-<genre> must be mapped to the proper channel number in your TiVo Control configuration (see chnlist.json)
+<genre> must be mapped to the proper channel number in your TiVo Control configuration (see channels.json)
 ... list genres
 genres are configured in genres object in constants.json
 
