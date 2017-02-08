@@ -8,5 +8,5 @@
   { "name":"espn", "alias":"espn", "channel":1127, "pronounce":"e.s.p.n", "genre":"sports" },
   { "name":"espn2", "alias":"espn2", "channel":1128, "pronounce":"e.s.p.n. 2", "genre":"sports" },
   { "name":"syfy", "alias":"sci fi", "channel":1286, "pronounce":"sci fi", "genre":"entertainment" },
-  { "name":"comedy central", "alias":"comedy central", "channel":1292, "pronounce":"comedy central", "genre":"entertainment" },
+  { "name":"comedy central", "alias":"comedy central", "channel":1292, "pronounce":"comedy central", "genre":"entertainment" }
 ]
