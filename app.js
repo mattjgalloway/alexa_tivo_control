@@ -10,7 +10,6 @@ module.change_code = 1;
 var config = require("./config.json");
 var strings = require("./constants.json");
 var channels = require("./channels.json");
-var chnllist = require("./chnllist.json");
 
 // load settings from config file
 var route = config.route || "tivo_control";
@@ -446,16 +445,24 @@ app.intent('PutOn',
     function(request,response) {
         var commands = [];
         var chnl = String(request.slot("CHANNELNAME"));
+        var chnlnum = "";
+
         chnl = chnl.toLowerCase();
-        var chnlnum = String(channels[chnl]);
-        console.log("Requested to put on channel: " + chnlnum);
+        console.log("Request to put on channel: " + chnl);
+
+        for (channelName in channels) {
+            if (channels[channelName].alias == chnl) {
+                console.log("found in channels.json (channel: " + channels[channelName].channel + ")");
+                chnlnum = channels[channelName].channel;
+            }
+        }
         
         lastTivoBox = tivoIndex;
         tivoBoxRoom = request.slot("TIVOBOXRM");
         roomFound = setTiVoRoom(tivoBoxRoom, response);
 
         if (roomFound) {
-            if (typeof channels[chnl] != 'undefined') {
+            if (chnlnum != "") {
                 if (tivoMini) {
                     for (pos = 0; pos < chnlnum.length; pos++) {
                         commands.push("NUM" + chnlnum.substring(pos,pos+1));
@@ -468,7 +475,7 @@ app.intent('PutOn',
                 return sendCommands(commands, true);
             }
             else {
-                console.log("Undefined channel: " + chnl);
+                console.log("Unmapped channel: " + chnl);
                 response.say(strings.txt_undefinedchannel + chnl + strings.txt_undefinedchannel2);
                 setLastTivo();
             }
@@ -1514,31 +1521,32 @@ function createChannelList(genre) {
     var linecount = 0;
 
     console.log("building list of defined channels");
-    console.log("Genre: " + genre );
-    for (channelName in chnllist) {
-        if (linecount == 97 ) {
+    console.log("Genre: " + genre);
+    for (channelName in channels) {
+        if (linecount == 97) {
             console.log("Channel list is too long.");
             speechList = speechList + ", " + strings.txt_listtoolong;
             cardList = cardList + "\n\n\n" + strings.txt_listtoolong;
             return
         }
 		
-        if (chnllist[channelName].genre == genre) {
+        if (channels[channelName].genre == genre) {
             linecount++;
-            console.log(chnllist[channelName].name + " (" + chnllist[channelName].channel + ")");
-            speechList = speechList + ", " + chnllist[channelName].pronounce;
+            console.log(channels[channelName].name + " (" + channels[channelName].channel + ")");
+            speechList = speechList + ", " + channels[channelName].pronounce;
             // uppercase the channel names for a consistent look on the card, and include channel number
-            cardList = cardList + "\n- " + chnllist[channelName].name.toUpperCase() + " (" + chnllist[channelName].channel + ")";
+            cardList = cardList + "\n- " + channels[channelName].name.toUpperCase() + " (" + channels[channelName].channel + ")";
         } else if (genres.indexOf(genre) < 0 | genre == "all") {
             linecount++;
-            console.log(chnllist[channelName].name + " (" + chnllist[channelName].channel + ")");
-            speechList = speechList + ", " + chnllist[channelName].pronounce;
+            console.log(channels[channelName].name + " (" + channels[channelName].channel + ")");
+            speechList = speechList + ", " + channels[channelName].pronounce;
             // uppercase the channel names for a consistent look on the card, and include channel number
-            cardList = cardList + "\n- " + chnllist[channelName].name.toUpperCase() + " (" + chnllist[channelName].channel + ")";
+            cardList = cardList + "\n- " + channels[channelName].name.toUpperCase() + " (" + channels[channelName].channel + ")";
         }
     }
     console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
 
 }
+
 
 module.exports = app;

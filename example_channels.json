@@ -1,12 +1,12 @@
-{
-  "<channel name in lower case>": <channel number>,
-  "nbc": 1008,
-  "cbs": 1010,
-  "abc": 1011,
-  "fox": 1013,
-  "pbs": 1003,
-  "espn": 1127,
-  "espn2": 1128,
-  "sci fi": 1286,
-  "comedy central": 1292
-}
+[
+  { "name":"<CHANNEL NAME>", "alias":"<CHANNEL ALIAS>", "channel":<CHANNEL NUMBER>, "pronounce":"<CHANNEL PRONUNCIATION>", "genre":"<CHANNEL GENRE>" },
+  { "name":"nbc", "alias":"nbc", "channel":1008, "pronounce":"n.b.c", "genre":"locals" },
+  { "name":"cbs", "alias":"cbs", "channel":1010, "pronounce":"c.b.s", "genre":"locals" },
+  { "name":"abc", "alias":"abx", "channel":1011, "pronounce":"a.b.c", "genre":"locals" },
+  { "name":"fox", "alias":"fox", "channel":1013, "pronounce":"fox", "genre":"locals" },
+  { "name":"pbs", "alias":"pbs", "channel":1003, "pronounce":"p.b.s", "genre":"locals" },
+  { "name":"espn", "alias":"espn", "channel":1127, "pronounce":"e.s.p.n", "genre":"sports" },
+  { "name":"espn2", "alias":"espn2", "channel":1128, "pronounce":"e.s.p.n. 2", "genre":"sports" },
+  { "name":"syfy", "alias":"sci fi", "channel":1286, "pronounce":"sci fi", "genre":"entertainment" },
+  { "name":"comedy central", "alias":"comedy central", "channel":1292, "pronounce":"comedy central", "genre":"entertainment" },
+]
