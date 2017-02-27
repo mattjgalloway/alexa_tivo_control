@@ -1202,7 +1202,7 @@ function sendNextCommand () {
             console.log("Sending Explicit Command: " + command["command"].toUpperCase());
             telnetSocket.write(command["command"].toUpperCase() + "\r");
             if (command.indexOf("TELEPORT")) {
-                timeToWait = 700;
+                timeToWait = 2500;
             }
         } else {
             // when explicit is false, add the proper command prefix (IRCODE, KEYBOARD, etc.)
@@ -1220,7 +1220,7 @@ function sendNextCommand () {
                 telnetSocket.write(prefix + " " + command.toUpperCase() + "\r");
             }
             if (prefix == "TELEPORT") {
-                timeToWait = 700;
+                timeToWait = 2500;
             }
         }
         setTimeout(sendNextCommand, timeToWait);
