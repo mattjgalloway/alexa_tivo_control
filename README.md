@@ -1,10 +1,10 @@
 # TiVo Control
-A skill to voice control your TiVo DVRs through Alexa-enabled devices like the Amazon Echo or Dot.
+A skill to voice control your TiVo DVRs through Alexa-enabled devices like the Amazon Echo, Dot, or even the Amazon mobile app.
 
 - - -
 ## Requirements
 
-* [Node.js](https://nodejs.org/en/blog/release/v0.10.36/)
+* [Node.js](https://nodejs.org/en/blog/release/v6.9.5/)
 * [Alexa-App-Server](https://github.com/matt-kruse/alexa-app-server)
 * [Alexa-App](https://github.com/matt-kruse/alexa-app)
 
