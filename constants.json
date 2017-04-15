@@ -13,6 +13,7 @@
   "vudu": "VUDU",
   "epix": "EPIX",
   "hsn": "HSN",
+  "vevo": "Vevo",
   "alt": "The ALT Channel",
   "flixfling": "FlixFling",
   "toongoggles": "Toon Goggles",
@@ -24,7 +25,7 @@
   "pandora": "Pandora",
   "plex_m": "Plex Music",
   "spotify": "Spotify",
-  "vevo": "Vevo",
+  "vevo_m": "Vevo Music",
 
   "txt_welcome": "Welcome to Tivo Control. ,",
   "txt_launch": "You can say things like Alexa, tell Tivo to pause, or Alexa, launch Plex. ,",

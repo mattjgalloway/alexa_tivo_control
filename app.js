@@ -15,8 +15,8 @@ var channels = require("./channels.json");
 var route = config.route || "tivo_control";
 
 // set video and audio provider order
-var video_provider_order = [strings.netflix, strings.amazon, strings.hbogo, strings.xfinityondemand, strings.hulu, strings.youtube, strings.mlbtv, strings.plex, strings.vudu, strings.epix, strings.hsn, strings.alt, strings.flixfling, strings.toongoggles, strings.wwe, strings.yahoo, strings.yupptv];
-var audio_provider_order = [strings.iheartradio, strings.pandora, strings.plex_m, strings.spotify, strings.vevo];
+var video_provider_order = [strings.netflix, strings.amazon, strings.hbogo, strings.xfinityondemand, strings.hulu, strings.youtube, strings.mlbtv, strings.plex, strings.vudu, strings.epix, strings.hsn, strings.vevo, strings.alt, strings.flixfling, strings.toongoggles, strings.wwe, strings.yahoo, strings.yupptv];
+var audio_provider_order = [strings.iheartradio, strings.pandora, strings.plex_m, strings.spotify, strings.vevo_m];
 
 // define variables
 var queuedCommands = [];
@@ -957,6 +957,25 @@ app.intent('HSN',
         }
     });
 	
+app.intent('Vevo',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {vevo music|music videos}", "play {music|music on|} vevo music" ]
+    },
+    function(request,response) {
+        if (checkProviderEnabled(strings.vevo)) {
+            response.say("Launching " + strings.vevo);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openMediaCommands(commands);
+            commands = buildProviderNavigation(strings.vevo, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.vevo + strings.txt_notenabled);
+        }
+    });
+
 app.intent('ALTChannel',
     {
         "slots":{},
@@ -1127,44 +1146,6 @@ app.intent('iHeartRadio',
         }
         else {
             response.say(strings.iheartradio + strings.txt_notenabled);
-        }
-    });
-
-app.intent('Vevo',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {vevo music|music videos}", "play {music|music on|} vevo music" ]
-    },
-    function(request,response) {
-        if (checkProviderEnabled(strings.vevo)) {
-            response.say("Launching " + strings.vevo);
-            var commands = [];
-            commands = addInitCommands(commands);
-            commands = openMusicCommands(commands);
-            commands = buildProviderNavigation(strings.vevo, commands);
-            sendCommands(commands);
-        }
-        else {
-            response.say(strings.vevo + strings.txt_notenabled);
-        }
-    });
-
-app.intent('PlexMusic',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {plex music}", "play {music|music on|} plex" ]
-    },
-    function(request,response) {
-        if (checkProviderEnabled(strings.plex_m)) {
-            response.say("Launching " + strings.plex_m);
-            var commands = [];
-            commands = addInitCommands(commands);
-            commands = openMusicCommands(commands);
-            commands = buildProviderNavigation(strings.plex_m, commands);
-            sendCommands(commands);
-        }
-        else {
-            response.say(strings.plex_m + strings.txt_notenabled);
         }
     });
 
@@ -1504,10 +1485,10 @@ function updateCurrentTiVoConfig(tivoIndex) {
     tivoMini = config.tivos[tivoIndex].mini;
 
     // update video provider status
-    video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv];
+    video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].vevo, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv];
  
     // update audio provider status
-    audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].spotify, config.tivos[tivoIndex].vevo];
+    audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].spotify, config.tivos[tivoIndex].vevo_m];
 
     console.log("Currently controlling: " + currentTiVoBox + " (" + currentTiVoIP + ")");
 }

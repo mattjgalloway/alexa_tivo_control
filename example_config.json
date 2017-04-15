@@ -16,9 +16,10 @@
       "youtube": true,
       "mlbtv": true,
       "plex": true,
-      "epix": true,
       "vudu": true,
+      "epix": true,
       "hsn": true,
+      "vevo": true,
       "alt": true,
       "flixfling": true,
       "toongoggles": true,
@@ -29,7 +30,7 @@
       "pandora": true,
       "plex_m": true,
       "spotify": true,
-      "vevo": true
+      "vevo_m": true
     }
   ]
 
