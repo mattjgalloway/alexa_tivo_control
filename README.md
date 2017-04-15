@@ -2,7 +2,7 @@
 A skill to voice control your TiVo DVRs through Alexa-enabled devices like the Amazon Echo, Dot, or even the Amazon mobile app.
 
 - - -
-### Demo
+## Demo
 
 * [demo video](https://youtu.be/UurlNvZ-OWM) (v0.4.0)
 
