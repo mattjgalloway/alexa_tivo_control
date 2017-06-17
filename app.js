@@ -611,6 +611,17 @@ app.intent('SkipCommerial',
         sendCommands(commands);
     });
 
+app.intent('WatchHD',
+    {
+        "slots":{},
+        "utterances":[ "watch {in|} {h.d.|high def}" ]
+    },
+    function(request,response) {
+        var commands = [];
+        commands.push("ACTION_D");
+        sendCommands(commands);
+    });
+
 app.intent('Rewind',
     {
         "slots":{},
