@@ -26,10 +26,12 @@
       "wwe": true,
       "yahoo": true,
       "yupptv": true,
+      "opera": true,
+      "ameba": true,
+      "tubi": true,
       "iheartradio": true,
       "pandora": true,
       "plex_m": true,
-      "spotify": true,
       "vevo_m": true
     }
   ]

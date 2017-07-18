@@ -15,8 +15,8 @@ var channels = require("./channels.json");
 var route = config.route || "tivo_control";
 
 // set video and audio provider order
-var video_provider_order = [strings.netflix, strings.amazon, strings.hbogo, strings.xfinityondemand, strings.hulu, strings.youtube, strings.mlbtv, strings.plex, strings.vudu, strings.epix, strings.hsn, strings.vevo, strings.alt, strings.flixfling, strings.toongoggles, strings.wwe, strings.yahoo, strings.yupptv];
-var audio_provider_order = [strings.iheartradio, strings.pandora, strings.plex_m, strings.spotify, strings.vevo_m];
+var video_provider_order = [strings.netflix, strings.amazon, strings.hbogo, strings.huhu, strings.xfinityondemand, strings.youtube, strings.epix, strings.vudu, strings.plex, strings.mlbtv, strings.wwe, strings.ameba, strings.toongoggles, strings.alt, strings.flixfling, strings.hsn, strings.tubi, strings.vevo, strings.yahoo, strings.yupptv, strings.opera];
+var audio_provider_order = [strings.iheartradio, strings.pandora, strings.plex_m, strings.vevo_m];
 
 // define variables
 var queuedCommands = [];
@@ -1100,6 +1100,64 @@ app.intent('YuppTV',
             response.say(strings.yupptv + strings.txt_notenabled);
         }
     });
+
+app.intent('OperaTV',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {opera|opera tv}" ]
+    },
+    function(request,response) {
+        if (checkProviderEnabled(strings.opera)) {
+            response.say("Launching " + strings.opera);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openMediaCommands(commands);
+            commands = buildProviderNavigation(strings.opera, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.opera + strings.txt_notenabled);
+        }
+    });
+
+app.intent('AmebaTV',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {ameba|amoeba|ameba tv|amoeba tv}" ]
+    },
+    function(request,response) {
+        if (checkProviderEnabled(strings.ameba)) {
+            response.say("Launching " + strings.ameba);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openMediaCommands(commands);
+            commands = buildProviderNavigation(strings.ameba, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.ameba + strings.txt_notenabled);
+        }
+    });
+
+app.intent('TubiTV',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {tubi|too bee|two be|tubi tv|too bee tv|two be tv}" ]
+    },
+    function(request,response) {
+        if (checkProviderEnabled(strings.tubi)) {
+            response.say("Launching " + strings.tubi);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openMediaCommands(commands);
+            commands = buildProviderNavigation(strings.tubi, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.tubi + strings.txt_notenabled);
+        }
+    });
+
 	
 // AUDIO PROVIDERS
 
@@ -1119,25 +1177,6 @@ app.intent('Pandora',
         }
         else {
             response.say(strings.pandora + strings.txt_notenabled);
-        }
-    });
-	
-app.intent('Spotify',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} spotify", "play {music|music on|} spotify" ]
-    },
-    function(request,response) {
-        if (checkProviderEnabled(strings.spotify)) {
-            response.say("Launching " + strings.spotify);
-            var commands = [];
-            commands = addInitCommands(commands);
-            commands = openMusicCommands(commands);
-            commands = buildProviderNavigation(strings.spotify, commands);
-            sendCommands(commands);
-        }
-        else {
-            response.say(strings.spotify + strings.txt_notenabled);
         }
     });
 	
@@ -1496,10 +1535,10 @@ function updateCurrentTiVoConfig(tivoIndex) {
     tivoMini = config.tivos[tivoIndex].mini;
 
     // update video provider status
-    video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].vevo, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv];
+    video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].ameba, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].tubi, config.tivos[tivoIndex].vevo, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv, config.tivos[tivoIndex].opera];
  
     // update audio provider status
-    audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].spotify, config.tivos[tivoIndex].vevo_m];
+    audio_provider_status = [config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora, config.tivos[tivoIndex].plex_m, config.tivos[tivoIndex].vevo_m];
 
     console.log("Currently controlling: " + currentTiVoBox + " (" + currentTiVoIP + ")");
 }
