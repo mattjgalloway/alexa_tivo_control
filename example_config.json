@@ -1,6 +1,7 @@
 {
   "alexaAppId": " ",
   "route": "tivo_control",
+  "macros": false,
 
   "tivos": [
     {

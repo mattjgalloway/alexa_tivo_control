@@ -33,7 +33,6 @@ CHANGING CHANNELS
 ... list genres
 genres are configured in genres object in constants.json
 
-
 FEATURES
 ... turn on/off captions
 ... turn on/off/toggle QuickMode
@@ -64,10 +63,13 @@ BOX SELECTION
 
 ADVANCED
 ... type <phrase>
-<phrase> can be a movie or television series
+<phrase> can be one to five words to type into a text field
+... execute macro <macro name>
+<macro name> is the name of a user-defined macro in the macros.json file
+... list macros (also adds a card to your Alexa app listing all user-defined macros)
 ... send the <command> command
-
 <command> can be any command defined in the TiVo TCP Remote Protocol. For example:
+
 - KEYBOARD commands (letters, numbers, etc.)
 - IRCODE commands (thumbs up/down, navigation (up, down, left, right), etc.)
 

@@ -1,0 +1,12 @@
+﻿[
+  {
+    "name": "TEST 1",
+    "description": "description of user macro",
+    "commands": "test 1, test 2, test 3"
+  },
+  {
+    "name": "TEST 2",
+    "description": "this is another user macro",
+    "commands": "test 1, test 2, test 3"
+  }
+]

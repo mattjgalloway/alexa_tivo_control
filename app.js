@@ -37,6 +37,15 @@ var tivoBoxRoom = "";
 var roomFound = false;
 var genres = strings["genres"];
 
+// macro setup (if enabled)
+var macros = "";
+var totalMacros = 0;
+if (config.macros) {
+    macros = require("./macros.json");
+    totalMacros = Object.keys(macros).length;
+    console.log("User-defined macros enabled (" + totalMacros + " found).");
+}
+
 // set default TiVo (first one in config file)
 updateCurrentTiVoConfig(tivoIndex);
 
@@ -151,6 +160,29 @@ app.intent('ListGenres',
         genres = genres.toLowerCase();
     });
 	
+app.intent('ListMacros',
+    {
+        "slots":{},
+        "utterances":[ "{for|to} {my macros|list my macros|list macros|macros list}" ]
+    },
+    function(request,response) {
+        if (config.macros) {
+            console.log("List of macros requested, adding card.");
+            speechList = "";
+            cardList = "";
+            for (i = 0; i < totalMacros; i++) {
+                speechList = speechList + macros[i].name + ": " + macros[i].description + ". ,";
+                cardList = cardList + "\n- \"" + macros[i].name.toUpperCase() + "\" - "  + macros[i].description;
+            }
+            response.say("Your TiVo Control macros are ." + speechList + strings.txt_enabledcard);
+            console.log("List of macros:\n " + cardList);
+            response.card("User Macros", strings.txt_macrocard + cardList + strings.txt_macrocard2);
+        }
+        else {
+            response.say(strings.txt_nomacros);
+        }
+    });
+
 // BOX SELECTION
 
 app.intent('ChangeTiVoBox',
@@ -757,6 +789,20 @@ app.intent('SendCommand',
         sendCommands(commands);
     });
 
+app.intent('ExecuteMacro',
+    {
+        "slots":{"USERMACRO":"TIVOMACRO_SLOT"},
+        "utterances":[ "{run|execute} macro {-|USERMACRO}" ]
+    },
+    function(request,response) {
+        if (config.macros) {
+            processMacro(request.slot("USERMACRO").toUpperCase(), response);
+        }
+        else {
+            response.say(strings.txt_nomacros);
+        }
+    });
+
 // VIDEO PROVIDERS
 
 app.intent('HBOGo',
@@ -1158,7 +1204,6 @@ app.intent('TubiTV',
         }
     });
 
-	
 // AUDIO PROVIDERS
 
 app.intent('Pandora',
@@ -1577,6 +1622,44 @@ function createChannelList(genre) {
     }
     console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
 
+}
+
+// retrieve the specified user-defined macro and build command sequence
+function processMacro(macroName, response) {
+
+    var macroCommands = "";
+
+    // confirm the requested macro exists in macros.json
+    macroIndex = findMacro(macroName);
+    if (macroIndex < 0) {
+        // the requested macro doesn't exist in the macros file
+        response.say(strings.txt_macronotfound + macroName + strings.txt_macronotfound2);
+    }
+    else {
+        response.say("Executing macro " + macroName);
+        console.log("Executing macro: " + macroName + " (" + macros[macroIndex].description + ")");
+        macroCommands = macros[macroIndex].commands.split(',');
+        console.log("Command sequence: " + macroCommands);
+        //var commands = [];
+        //commands.push("TIVO");
+        //sendCommands(commands);
+    }
+
+}
+
+// find the index of the requested macro in the macros file
+function findMacro(macroName) {
+
+    console.log("Searching for '" + macroName +"' in macros file ...");
+    for (i = 0; i < totalMacros; i++) {
+        if (macros[i].name.toUpperCase() == macroName) {
+            console.log("Found! (" + i + ")");
+            return i;
+        }
+    }
+
+    console.log("Not found!");
+    return -1;
 }
 
 
