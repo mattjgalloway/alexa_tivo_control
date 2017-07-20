@@ -3,9 +3,10 @@ Create a Custom Slot Type of TIVOCOMMAND_SLOT on the Interaction Model page
 of your Alexa skill and paste in the list of values below. 
 
 This is basically a list of commands in the TiVo TCP Protocol not covered by 
-other utterances that can be used by the "send command" command. Since some 
-of these aren't pronounceable (i.e., KBDDOWN) they probably won't be 
-recognized and processed, but they're here for completeness.
+other utterances that can be used by the "send command" command or to build
+macros for the 'execute macro' command. Since some of these aren't pronounceable
+(i.e., KBDDOWN) they probably won't be recognized and processed by voice, 
+but they're here for completeness.
 ---- REMOVE BETWEEN THESE LINES ----
 
 UP

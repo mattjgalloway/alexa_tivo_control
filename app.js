@@ -171,11 +171,11 @@ app.intent('ListMacros',
             speechList = "";
             cardList = "";
             for (i = 0; i < totalMacros; i++) {
-                speechList = speechList + macros[i].name + ": " + macros[i].description + ". ,";
+                speechList = speechList + macros[i].name + ",";
                 cardList = cardList + "\n- \"" + macros[i].name.toUpperCase() + "\" - "  + macros[i].description;
             }
             response.say("Your TiVo Control macros are ." + speechList + strings.txt_enabledcard);
-            console.log("List of macros:\n " + cardList);
+            console.log("List of macros:" + cardList);
             response.card("User Macros", strings.txt_macrocard + cardList + strings.txt_macrocard2);
         }
         else {
@@ -1627,22 +1627,32 @@ function createChannelList(genre) {
 // retrieve the specified user-defined macro and build command sequence
 function processMacro(macroName, response) {
 
-    var macroCommands = "";
+    var macroArray = "";
+    var macroCommand = "";
+    var commands = [];
 
     // confirm the requested macro exists in macros.json
     macroIndex = findMacro(macroName);
+
     if (macroIndex < 0) {
         // the requested macro doesn't exist in the macros file
         response.say(strings.txt_macronotfound + macroName + strings.txt_macronotfound2);
     }
     else {
         response.say("Executing macro " + macroName);
-        console.log("Executing macro: " + macroName + " (" + macros[macroIndex].description + ")");
-        macroCommands = macros[macroIndex].commands.split(',');
-        console.log("Command sequence: " + macroCommands);
-        //var commands = [];
-        //commands.push("TIVO");
-        //sendCommands(commands);
+        console.log("Executing macro: " + macroName);
+        macroArray = macros[macroIndex].commands.split(',');
+        macroArrayCount = macroArray.length;
+
+        // loop through the macro array to build the command sequence
+        for (i = 0; i < macroArrayCount; i++) { 
+            macroCommand = macroArray[i].trim(); 
+            console.log("Command sequence " + i + ": " + macroCommand);
+            commands.push(macroCommand);
+        }
+
+        // execute the macro
+        sendCommands(commands);
     }
 
 }
