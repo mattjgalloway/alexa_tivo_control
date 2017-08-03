@@ -1629,6 +1629,7 @@ function processMacro(macroName, response) {
 
     var macroArray = "";
     var macroCommand = "";
+    var waitDelay = 0;
     var commands = [];
 
     // confirm the requested macro exists in macros.json
@@ -1648,7 +1649,24 @@ function processMacro(macroName, response) {
         for (i = 0; i < macroArrayCount; i++) { 
             macroCommand = macroArray[i].trim(); 
             console.log("Command sequence " + i + ": " + macroCommand);
-            commands.push(macroCommand);
+            // check for the SLEEP command (to pause execution)
+            if (macroCommand.substring(0,4) == "WAIT") {
+                waitDelay = macroCommand.split(" ")[1];
+                // this is a hack for now: pad the command queue with MUTE commands
+                // to 'simulate' a pause. MUTE doesn't/shouldn't do anything but
+                // sending the commands keeps the connection from timing out.
+                // The wait time is specified in seconds so convert that into an
+                // appropriate number of IRCODE commands to send that will simulate
+                // a pausing of the macro for that length of time. In testing, 3
+                // IRCODE commands take approximately 1 second.
+                waitDelay = parseInt(waitDelay) * 3;
+                for (j = 0; j < waitDelay; j++) {
+                    commands.push("MUTE");
+                }
+            }
+            else {
+                commands.push(macroCommand);
+            }
         }
 
         // execute the macro
