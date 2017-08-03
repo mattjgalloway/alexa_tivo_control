@@ -1,6 +1,8 @@
 # TiVo Control
 A skill to voice control your TiVo DVRs through Alexa-enabled devices like the Amazon Echo, Dot, or even the Amazon mobile app.
 
+DISCLAIMER: THIS SKILL IS FOR PERSONAL USE ONLY AND IS NOT ENDORSED OR SUPPORTED BY TIVO. IT WILL NOT PASS AMAZON'S CERTIFICATION SINCE A LOCAL SERVICE IS REQUIRED TO SEND THE COMMANDS TO YOUR TIVO BOX.
+
 - - -
 ## Demo
 
