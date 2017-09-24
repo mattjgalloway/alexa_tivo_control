@@ -15,7 +15,7 @@ var channels = require("./channels.json");
 var route = config.route || "tivo_control";
 
 // set apps order
-var apps_order = [strings.netflix, strings.amazon, strings.hbogo, strings.hulu, strings.xfinityondemand, strings.youtube, strings.epix, strings.vudu, strings.plex, strings.mlbtv, strings.wwe, strings.ameba, strings.toongoggles, strings.alt, strings.flixfling, strings.hsn, strings.tubi, strings.vevo, strings.yahoo, strings.yupptv, strings.opera, strings.iheartradio, strings.pandora];
+var apps_order = [strings.netflix, strings.amazon, strings.hbogo, strings.hulu, strings.xfinityondemand, strings.youtube, strings.epix, strings.vudu, strings.plex, strings.mlbtv, strings.wwe, strings.ameba, strings.toongoggles, strings.alt, strings.flixfling, strings.hsn, strings.ign, strings.tastemade, strings.tubi, strings.vevo, strings.yahoo, strings.yupptv, strings.opera, strings.baeble, strings.iheartradio, strings.pandora];
 
 // define variables
 var queuedCommands = [];
@@ -1204,6 +1204,63 @@ app.intent('TubiTV',
         }
     });
 
+app.intent('IGNTV',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {ign|eye gee enn|i g n|ign tv|eye gee enn tv|i g n tv}" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.ign)) {
+            response.say("Launching " + strings.ign);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.ign, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.ign + strings.txt_notenabled);
+        }
+    });
+
+app.intent('TastemadeTV',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {tastemade|taste made|tastemade tv|taste made tv}" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.tastemade)) {
+            response.say("Launching " + strings.tastemade);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.tastemade, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.tastemade + strings.txt_notenabled);
+        }
+    });
+
+app.intent('BaebleMusic',
+    {
+        "slots":{},
+        "utterances":[ "{go to|open|turn on|open up|display|jump to|launch|} {baeble|baeble music|babble|babble music}" ]
+    },
+    function(request,response) {
+        if (checkAppEnabled(strings.baeble)) {
+            response.say("Launching " + strings.baeble);
+            var commands = [];
+            commands = addInitCommands(commands);
+            commands = openAppsCommands(commands);
+            commands = buildAppNavigation(strings.baeble, commands);
+            sendCommands(commands);
+        }
+        else {
+            response.say(strings.baeble + strings.txt_notenabled);
+        }
+    });
+
 app.intent('Pandora',
     {
         "slots":{},
@@ -1535,7 +1592,7 @@ function updateCurrentTiVoConfig(tivoIndex) {
     tivoMini = config.tivos[tivoIndex].mini;
 
     // update apps status
-    apps_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].ameba, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].tubi, config.tivos[tivoIndex].vevo, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv, config.tivos[tivoIndex].opera, config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora];
+    apps_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].ameba, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].ign, config.tivos[tivoIndex].tastemade, config.tivos[tivoIndex].tubi, config.tivos[tivoIndex].vevo, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv, config.tivos[tivoIndex].opera, config.tivos[tivoIndex].baeble, config.tivos[tivoIndex].iheartradio, config.tivos[tivoIndex].pandora];
 
     console.log("Currently controlling: " + currentTiVoBox + " (" + currentTiVoIP + ")");
 }
