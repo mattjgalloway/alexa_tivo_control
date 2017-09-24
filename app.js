@@ -36,6 +36,7 @@ var channelName = "";
 var tivoBoxRoom = "";
 var roomFound = false;
 var genres = strings["genres"];
+var hydraUI = false;
 
 // macro setup (if enabled)
 var macros = "";
@@ -285,7 +286,12 @@ app.intent('OnePassManager',
     function(request,response) {
         var commands = [];
         commands.push("TIVO");
-        commands.push("NUM1");
+        if (hydraUI) {
+            // insert hydra navigation commands here
+        }
+        else {
+            commands.push("NUM1");
+        }
         sendCommands(commands);
     });
 
@@ -297,7 +303,12 @@ app.intent('ToDoList',
     function(request,response) {
         var commands = [];
         commands.push("TIVO");
-        commands.push("NUM2");
+        if (hydraUI) {
+            // insert hydra navigation commands here
+        }
+        else {
+            commands.push("NUM2");
+        }
         sendCommands(commands);
     });
 
@@ -309,7 +320,12 @@ app.intent('WishLists',
     function(request,response) {
         var commands = [];
         commands.push("TIVO");
-        commands.push("NUM3");
+        if (hydraUI) {
+            // insert hydra navigation commands here
+        }
+        else {
+            commands.push("NUM3");
+        }
         sendCommands(commands);
     });
 
@@ -328,7 +344,12 @@ app.intent('Search',
         console.log(TIVOSEARCHREQMOVIE);
         console.log(TIVOSEARCHREQTVSERIES);
         commands.push("TIVO");
-        commands.push("NUM4");
+        if (hydraUI) {
+            commands.push("NUM3");
+        }
+        else {
+            commands.push("NUM4");
+        }
         if (TIVOSEARCHREQMOVIE != 'UNDEFINED') {
             console.log("Movie Search");
             for (i = 0; i < TIVOSEARCHREQMOVIE.length; i++) {
@@ -412,7 +433,12 @@ app.intent('Browse',
     function(request,response) {
         var commands = [];
         commands.push("TIVO");
-        commands.push("NUM5");
+        if (hydraUI) {
+            // insert hydra navigation commands here
+        }
+        else {
+            commands.push("NUM5");
+        }
         sendCommands(commands);
     });
 
@@ -424,7 +450,12 @@ app.intent('History',
     function(request,response) {
         var commands = [];
         commands.push("TIVO");
-        commands.push("NUM6");
+        if (hydraUI) {
+            // insert hydra navigation commands here
+        }
+        else {
+            commands.push("NUM6");
+        }
         sendCommands(commands);
     });
 
@@ -436,11 +467,16 @@ app.intent('WhatToWatch',
     function(request,response) {
         var commands = [];
         commands.push("TIVO");
-        commands.push("DOWN");
-        if (tivoMini) {
-            commands.push("DOWN");
+        if (hydraUI) {
+            commands.push("NUM2");
         }
-        commands.push("RIGHT");
+        else {
+            commands.push("DOWN");
+            if (tivoMini) {
+                commands.push("DOWN");
+            }
+            commands.push("RIGHT");
+        }
         sendCommands(commands);
     });
 
@@ -1581,6 +1617,7 @@ function updateCurrentTiVoConfig(tivoIndex) {
     currentTiVoIP = config.tivos[tivoIndex].address;
     currentTiVoPort = config.tivos[tivoIndex].port;
     tivoMini = config.tivos[tivoIndex].mini;
+    hydraUI = config.tivos[tivoIndex].hydra;
 
     // update video provider status
     video_provider_status = [config.tivos[tivoIndex].netflix, config.tivos[tivoIndex].amazon, config.tivos[tivoIndex].hbogo, config.tivos[tivoIndex].hulu, config.tivos[tivoIndex].xfinityondemand, config.tivos[tivoIndex].youtube, config.tivos[tivoIndex].epix, config.tivos[tivoIndex].vudu, config.tivos[tivoIndex].plex, config.tivos[tivoIndex].mlbtv, config.tivos[tivoIndex].wwe, config.tivos[tivoIndex].ameba, config.tivos[tivoIndex].toongoggles, config.tivos[tivoIndex].alt, config.tivos[tivoIndex].flixfling, config.tivos[tivoIndex].hsn, config.tivos[tivoIndex].tubi, config.tivos[tivoIndex].vevo, config.tivos[tivoIndex].yahoo, config.tivos[tivoIndex].yupptv, config.tivos[tivoIndex].opera];
