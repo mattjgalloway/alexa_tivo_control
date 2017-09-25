@@ -141,7 +141,7 @@ app.intent('ListChannels',
         } else {
             createChannelList(genre);
         }
-        response.say(strings.txt_channelscard + genre + strings.txt_channelscard2 + speechList + strings.txt_enabledcard);
+        response.say(strings.txt_channelscard + genre + strings.txt_channelscard2say + speechList + strings.txt_enabledcard);
         response.card("Channels  (" + genre + ")", strings.txt_channelscard + genre + strings.txt_channelscard2 + cardList + strings.txt_channelsfooter);
     });
 	
@@ -213,7 +213,7 @@ app.intent('ChangeTiVoBox',
 
         updateCurrentTiVoConfig(tivoIndex);
         lastTivoBox = tivoIndex;
-        response.say("Currently controlling your " + currentTiVoBox + " TiVo.");
+        response.say("Currently controlling your " + currentTiVoBox + " Tivo.");
     });
 
 app.intent('WhichTiVoBox',
@@ -223,7 +223,7 @@ app.intent('WhichTiVoBox',
     },
     function(request,response) {
         console.log("Currently controlling: " + currentTiVoBox + " (" + currentTiVoIP + ")");
-        response.say("Currently controlling your " + currentTiVoBox + " TiVo.");
+        response.say("Currently controlling your " + currentTiVoBox + " Tivo.");
     });
 
 app.intent('ListTiVoBoxes',
@@ -232,10 +232,10 @@ app.intent('ListTiVoBoxes',
         "utterances":[ "{for|to} {my tivos|list my tivos|tivo|list tivos|tivo list|list tivo boxes|list boxes}" ]
     },
     function(request,response) {
-        console.log("List of Tivo boxes requested, adding card.");
+        console.log("List of TiVo boxes requested, adding card.");
         createTiVoBoxList();
-        response.say(strings.txt_tivolist + speechList + strings.txt_enabledcard);
-        response.card("TiVo Boxes", strings.txt_tivolist + cardList + strings.txt_tivofooter);
+        response.say(strings.txt_tivolistsay + speechList + strings.txt_enabledcard);
+        response.card("TiVo Boxes", strings.txt_tivolistcard + cardList + strings.txt_tivofooter);
     });
 
 // PLACES
@@ -1533,7 +1533,7 @@ function createTiVoBoxList() {
 function setTiVoRoom(tivoBoxRoom, response) {
 
     if (tivoBoxRoom != undefined) { 
-        console.log("Last Tivo box index: " + tivoIndex);
+        console.log("Last TiVo box index: " + tivoIndex);
         currentTiVoBox = tivoBoxRoom;
         console.log("Control requested for '" + currentTiVoBox + "' TiVo.");
 
@@ -1562,7 +1562,7 @@ function setTiVoRoom(tivoBoxRoom, response) {
 
 function setLastTivo() {
 
-    console.log("Setting last Tivo");
+    console.log("Setting last TiVo");
     tivoIndex = lastTivoBox;
     updateCurrentTiVoConfig(tivoIndex);
 
