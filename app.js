@@ -632,7 +632,7 @@ app.intent('SkipAhead',
         sendCommands(commands);
     });
 
-app.intent('SkipCommerial',
+app.intent('SkipCommercial',
     {
         "slots":{},
         "utterances":[ "skip {the|} {this|} {commercial|commercials}" ]
