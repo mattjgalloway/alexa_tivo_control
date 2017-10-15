@@ -813,7 +813,7 @@ function createChannelList(genre) {
             names.push(channels[channelName].pronounce);
             // uppercase the channel names for a consistent look on the card, and include channel number
             cardList = cardList + "\n- " + channels[channelName].name.toUpperCase() + " (" + channels[channelName].channel + ")";
-        } else if (genres.indexOf(genre) < 0 | genre == "all") {
+        } else if (genres.indexOf(genre) < 0 || genre == "all") {
             linecount++;
             console.log(channels[channelName].name + " (" + channels[channelName].channel + ")");
             names.push(channels[channelName].pronounce);
