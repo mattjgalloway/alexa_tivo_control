@@ -1,0 +1,106 @@
+{
+  "netflix": {
+    "name": "Netflix",
+    "utterence_key": "netflix"
+  },
+  "amazon": {
+    "name": "Amazon Video",
+    "utterence_key": "amazon {video|}"
+  },
+  "hbogo": {
+    "name": "HBO Go",
+    "utterence_key": "hbo go"
+  },
+  "xfinityondemand": {
+    "name": "Xfinity on Demand",
+    "utterence_key": "{xfinity|on demand} {on demand|}"
+  },
+  "hulu": {
+    "name": "Hulu",
+    "utterence_key": "hulu"
+  },
+  "youtube": {
+    "name": "YouTube",
+    "utterence_key": "youtube"
+  },
+  "mlbtv": {
+    "name": "MLB.TV",
+    "utterence_key": "{the|} {mlb|baseball|mlb tv|major league baseball|major league baseball tv}"
+  },
+  "plex": {
+    "name": "Plex",
+    "utterence_key": "plex"
+  },
+  "vudu": {
+    "name": "VUDU",
+    "utterence_key": "{vudu|voodoo}"
+  },
+  "epix": {
+    "name": "EPIX",
+    "utterence_key": "{epics|epix}"
+  },
+  "hsn": {
+    "name": "HSN",
+    "utterence_key": "{hsn|home shopping network|shopping}"
+  },
+  "vevo": {
+    "name": "Vevo",
+    "utterence_key": "{vevo music|music videos}"
+  },
+  "alt": {
+    "name": "The ALT Channel",
+    "utterence_key": "{alt|alt channel}"
+  },
+  "flixfling": {
+    "name": "FlixFling",
+    "utterence_key": "flixfling"
+  },
+  "toongoggles": {
+    "name": "Toon Goggles",
+    "utterence_key": "toon goggles"
+  },
+  "wwe": {
+    "name": "WWE Network",
+    "utterence_key": "{wwe|wrestling|world wrestling entertainment}"
+  },
+  "yahoo": {
+    "name": "Yahoo",
+    "utterence_key": "yahoo"
+  },
+  "yupptv": {
+    "name": "YuppTV",
+    "utterence_key": "{yupp|yupp tv|yupptv}"
+  },
+  "opera": {
+    "name": "Opera TV",
+    "utterence_key": "{opera|opera tv}"
+  },
+  "ameba": {
+    "name": "Ameba TV",
+    "utterence_key": "{ameba|amoeba|ameba tv|amoeba tv}"
+  },
+  "tubi": {
+    "name": "Tubi TV",
+    "utterence_key": "{tubi|too bee|two be|tubi tv|too bee tv|two be tv}"
+  },
+  "ign": {
+    "name": "IGN TV",
+    "utterence_key": "{ign|eye gee enn|i g n|ign tv|eye gee enn tv|i g n tv}"
+  },
+  "tastemade": {
+    "name": "Tastemade TV",
+    "utterence_key": "{tastemade|taste made|tastemade tv|taste made tv}"
+  },
+  "baeble": {
+    "name": "Baeble Music Channel",
+    "utterence_key": "{baeble|baeble music|babble|babble music}"
+  },
+  "iheartradio": {
+    "name": "I Heart Radio",
+    "utterence_key": "{iheartradio|i heart radio}"
+  },
+  "pandora": {
+    "name": "Pandora",
+    "utterence_key": "pandora"
+  }
+}
