@@ -15,7 +15,7 @@
   "txt_appfooter": "\n\u22C5\nYou must update your config.json file in the TiVo Control directory and mark the apps you have active on each TiVo as 'true'. This is used by the program to dynamically determine the remote key-presses required to navigate to the proper menu item.",
   "txt_undefinedtivo": "Sorry, I couldn't find a Tivo named ",
   "txt_undefinedtivo2": " in your Tivo Control configuration file.",
-  "txt_tivolistsay": "The following Tivo boxes are configured for Tivo Control.",
+  "txt_tivolistsay": "The following Tivo boxes are configured for Tivo Control. ",
   "txt_tivolistcard": "The following TiVo boxes are configured for TiVo Control:\n\u22C5\n",
   "txt_tivofooter": "\n\u22C5\nUse the names above when asking TiVo Control to switch between TiVo boxes (i.e., 'Alexa, tell TiVo to control Family Room.'\n\u22C5\nYou must update your config.json file in the TiVo Control directory and add a section for each TiVo box you want to control with this program.",
   "txt_onetivo": "Sorry, only one Tivo box is set up for Tivo Control in your configuration file, so I can't switch to that box.",

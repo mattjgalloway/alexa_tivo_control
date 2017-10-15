@@ -690,8 +690,9 @@ function createTiVoBoxList() {
     cardList = "";
 
     console.log("building list of TiVo boxes");
+    var names = [];
     for (i = 0; i < totalTiVos; i++) {
-        speechList = speechList + ", " + config.tivos[i].name;
+        names.push(config.tivos[i].name);
         cardList = cardList + "\n- " + config.tivos[i].name;
         // indicate default TiVo box
         if (i == 0) {
@@ -702,6 +703,8 @@ function createTiVoBoxList() {
             cardList = cardList + " [current]";
         }
     }
+    
+    speechList = names.join(", ");
 
     console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
 
@@ -795,10 +798,11 @@ function createChannelList(genre) {
 
     console.log("building list of defined channels");
     console.log("Genre: " + genre);
+    var names = [];
     for (channelName in channels) {
         if (linecount == 97) {
             console.log("Channel list is too long.");
-            speechList = speechList + ", " + strings.txt_listtoolong;
+            names.push(strings.txt_listtoolong);
             cardList = cardList + "\n\n\n" + strings.txt_listtoolong;
             return
         }
@@ -806,17 +810,20 @@ function createChannelList(genre) {
         if (channels[channelName].genre == genre) {
             linecount++;
             console.log(channels[channelName].name + " (" + channels[channelName].channel + ")");
-            speechList = speechList + ", " + channels[channelName].pronounce;
+            names.push(channels[channelName].pronounce);
             // uppercase the channel names for a consistent look on the card, and include channel number
             cardList = cardList + "\n- " + channels[channelName].name.toUpperCase() + " (" + channels[channelName].channel + ")";
         } else if (genres.indexOf(genre) < 0 | genre == "all") {
             linecount++;
             console.log(channels[channelName].name + " (" + channels[channelName].channel + ")");
-            speechList = speechList + ", " + channels[channelName].pronounce;
+            names.push(channels[channelName].pronounce);
             // uppercase the channel names for a consistent look on the card, and include channel number
             cardList = cardList + "\n- " + channels[channelName].name.toUpperCase() + " (" + channels[channelName].channel + ")";
         }
     }
+    
+    speechList = names.join(", ");
+    
     console.log("speech list:\n " + speechList + "\ncard list: " + cardList);
 
 }
