@@ -1,0 +1,147 @@
+[
+  {
+    "name": "LastChannel",
+    "utterences": [ "{for|} {last|previous} {channel|}" ],
+    "commands": [ "ENTER" ]
+  },
+  {
+    "name": "Pause",
+    "utterences": [ "pause" ],
+    "commands": [ "PAUSE" ]
+  },
+  {
+    "name": "Play",
+    "utterences": [ "play" ],
+    "commands": [ "PLAY" ]
+  },
+  {
+    "name": "Info",
+    "utterences": [ "{for|} info" ],
+    "commands": [ "INFO" ]
+  },
+  {
+    "name": "FastForward",
+    "utterences": [ "fast forward" ],
+    "commands": [ "FORWARD" ]
+  },
+  {
+    "name": "FastForwardDouble",
+    "utterences": [ "{double fast forward|fast forward two x|fast forward two times}" ],
+    "commands": [ "FORWARD", "FORWARD" ]
+  },
+  {
+    "name": "FastForwardTriple",
+    "utterences": [ "{triple fast forward|fast forward three x|fast forward three times}" ],
+    "commands": [ "FORWARD", "FORWARD", "FORWARD" ]
+  },
+  {
+    "name": "SkipAhead",
+    "utterences": [ "{skip|advance} {forward|ahead}" ],
+    "commands": [ "ADVANCE" ]
+  },
+  {
+    "name": "SkipCommercial",
+    "utterences": [ "skip {the|} {this|} {commercial|commercials|advert|adverts|ad|ads}" ],
+    "commands": [ "ACTION_D" ]
+  },
+  {
+    "name": "WatchHD",
+    "utterences": [ "watch {in|} {h.d.|high def}" ],
+    "commands": [ "ACTION_D" ]
+  },
+  {
+    "name": "Rewind",
+    "utterences": [ "rewind" ],
+    "commands": [ "REVERSE" ]
+  },
+  {
+    "name": "RewindDouble",
+    "utterences": [ "{double rewind|rewind two x|rewind two times}" ],
+    "commands": [ "REVERSE", "REVERSE" ]
+  },
+  {
+    "name": "RewindTriple",
+    "utterences": [ "{triple rewind|rewind three x|rewind three times}" ],
+    "commands": [ "REVERSE", "REVERSE", "REVERSE" ]
+  },
+  {
+    "name": "Replay",
+    "utterences": [ "replay" ],
+    "commands": [ "REPLAY", "REPLAY" ]
+  },
+  {
+    "name": "Record",
+    "utterences": [ "record {this|} {show|}", "record the current show" ],
+    "commands": [ "RECORD", "RIGHT" ]
+  },
+  {
+    "name": "CaptionsOn",
+    "utterences": [ "{turn on|enable} {closed captions|captions}" ],
+    "commands": [ "CC_ON" ]
+  },
+  {
+    "name": "CaptionsOff",
+    "utterences": [ "{turn off|disable} {closed captions|captions}" ],
+    "commands": [ "CC_OFF" ]
+  },
+  {
+    "name": "QuickMode",
+    "utterences": [ "{turn on|turn off|enable|disable|toggle} quick mode" ],
+    "commands": [ "PLAY", "SELECT", "CLEAR" ]
+  },
+  {
+    "name": "ThumbsUp",
+    "utterences": [ "thumbs up" ],
+    "commands": [ "THUMBSUP" ]
+  },
+  {
+    "name": "ThumbsDown",
+    "utterences": [ "thumbs down" ],
+    "commands": [ "THUMBSDOWN" ]
+  },
+  {
+    "name": "GoHome",
+    "utterences": [ "{show|go} {to|to the|} {home|tivo central} {screen|}", "tivo central", "home" ],
+    "commands": [ "TIVO" ]
+  },
+  {
+    "name": "LiveTV",
+    "utterences": [ "{show|go to|} live tv" ],
+    "commands": [ "LIVETV" ]
+  },
+  {
+    "name": "Guide",
+    "utterences": [ "{show|show the|go to|go to the|} {guide}" ],
+    "commands": [ "GUIDE" ]
+  },
+  {
+    "name": "OnePassManager",
+    "utterences": [ "{go to|open|open up|display|launch|show} {my|} {onepasses|season passes}", "{onepass manager|season passes}" ],
+    "commands": [ "TIVO", "NUM1" ]
+  },
+  {
+    "name": "ToDoList",
+    "utterences": [ "{go to|open|open up|display|launch|show} {my|} {to do list}", "to do list" ],
+    "commands": [ "TIVO", "NUM2" ]
+  },
+  {
+    "name": "WishLists",
+    "utterences": [ "{go to|open|open up|display|launch|show} {my|} {wishlists}", "wish lists" ],
+    "commands": [ "TIVO", "NUM3" ]
+  },
+  {
+    "name": "Browse",
+    "utterences": [ "{go to|open|open up|display|launch|show|} browse", "browse" ],
+    "commands": [ "TIVO", "NUM5" ]
+  },
+  {
+    "name": "History",
+    "utterences": [ "{go to|open|open up|display|launch|show|} {my|} {recording|} history", "history" ],
+    "commands": [ "TIVO", "NUM6" ]
+  },
+  {
+    "name": "MyShows",
+    "utterences": [ "{go to|open|open up|display|launch|show} {now playing|my shows|my recordings}", "my shows" ],
+    "commands": [ "NOWPLAYING" ]
+  }
+]

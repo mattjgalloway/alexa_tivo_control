@@ -9,6 +9,7 @@ module.change_code = 1;
 // load configuration parameters
 var config = require("./config.json");
 var strings = require("./constants.json");
+var commandIntents = require("./commandIntents.json");
 var channels = require("./channels.json");
 
 // load settings from config file
@@ -240,76 +241,6 @@ app.intent('ListTiVoBoxes',
 
 // PLACES
 
-app.intent('GoHome',
-    {
-        "slots":{},
-        "utterances":[ "{show|go} {to|to the|} {home|tivo central} {screen|}", "tivo central", "home" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("TIVO");
-        sendCommands(commands);
-    });
-
-
-app.intent('LiveTV',
-    {
-        "slots":{},
-        "utterances":[ "{show|go to|} live tv" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("LIVETV");
-        sendCommands(commands);
-    });
-
-app.intent('Guide',
-    {
-        "slots":{},
-        "utterances":[ "{show|show the|go to|go to the|} {guide}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("GUIDE");
-        sendCommands(commands);
-    });
-
-app.intent('OnePassManager',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|open up|display|launch|show} {my|} {onepasses|season passes}", "{onepass manager|season passes}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("TIVO");
-        commands.push("NUM1");
-        sendCommands(commands);
-    });
-
-app.intent('ToDoList',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|open up|display|launch|show} {my|} {to do list}", "to do list" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("TIVO");
-        commands.push("NUM2");
-        sendCommands(commands);
-    });
-
-app.intent('WishLists',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|open up|display|launch|show} {my|} {wishlists}", "wish lists" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("TIVO");
-        commands.push("NUM3");
-        sendCommands(commands);
-    });
-
 app.intent('Search',
     {
         "slots":{"TIVOSEARCHREQMOVIE":"AMAZON.Movie","TIVOSEARCHREQTVSERIES":"AMAZON.TVSeries"},
@@ -387,41 +318,6 @@ app.intent('Type',
                 }
             }
         }
-        sendCommands(commands);
-    });
-
-app.intent('MyShows',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|open up|display|launch|show} {now playing|my shows|my recordings}", "my shows" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("NOWPLAYING");
-        sendCommands(commands);
-    });
-
-app.intent('Browse',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|open up|display|launch|show|} browse", "browse" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("TIVO");
-        commands.push("NUM5");
-        sendCommands(commands);
-    });
-
-app.intent('History',
-    {
-        "slots":{},
-        "utterances":[ "{go to|open|open up|display|launch|show|} {my|} {recording|} history", "history" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("TIVO");
-        commands.push("NUM6");
         sendCommands(commands);
     });
 
@@ -540,241 +436,18 @@ app.intent('ForceChannel',
         }
     });
 
-app.intent('LastChannel',
-    {
-        "slots":{},
-        "utterances":[ "{for|} {last|previous} {channel|}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("ENTER");
-        sendCommands(commands);
-    });
+// SIMPLE COMMANDS
 
-app.intent('Pause',
-    {
-        "slots":{},
-        "utterances":[ "pause" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("PAUSE");
-        sendCommands(commands);
-    });
-
-app.intent('Play',
-    {
-        "slots":{},
-        "utterances":[ "play" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("PLAY");
-        sendCommands(commands);
-    });
-
-app.intent('Info',
-    {
-        "slots":{},
-        "utterances":[ "{for|} info" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("INFO");
-        sendCommands(commands);
-    });
-
-app.intent('FastForward',
-    {
-        "slots":{},
-        "utterances":[ "fast forward" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("FORWARD");
-        sendCommands(commands);
-    });
-
-app.intent('FastForwardDouble',
-    {
-        "slots":{},
-        "utterances":[ "{double fast forward|fast forward two x|fast forward two times}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("FORWARD");
-        commands.push("FORWARD");
-        sendCommands(commands);
-    });
-
-app.intent('FastForwardTriple',
-    {
-        "slots":{},
-        "utterances":[ "{triple fast forward|fast forward three x|fast forward three times}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("FORWARD");
-        commands.push("FORWARD");
-        commands.push("FORWARD");
-        sendCommands(commands);
-    });
-
-
-app.intent('SkipAhead',
-    {
-        "slots":{},
-        "utterances":[ "{skip|advance} {forward|ahead}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("ADVANCE");
-        sendCommands(commands);
-    });
-
-app.intent('SkipCommercial',
-    {
-        "slots":{},
-        "utterances":[ "skip {the|} {this|} {commercial|commercials}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("ACTION_D");
-        sendCommands(commands);
-    });
-
-app.intent('WatchHD',
-    {
-        "slots":{},
-        "utterances":[ "watch {in|} {h.d.|high def}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("ACTION_D");
-        sendCommands(commands);
-    });
-
-app.intent('Rewind',
-    {
-        "slots":{},
-        "utterances":[ "rewind" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("REVERSE");
-        sendCommands(commands);
-    });
-
-app.intent('RewindDouble',
-    {
-        "slots":{},
-        "utterances":[ "{double rewind|rewind two x|rewind two times}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("REVERSE");
-        commands.push("REVERSE");
-        sendCommands(commands);
-    });
-
-app.intent('RewindTriple',
-    {
-        "slots":{},
-        "utterances":[ "{triple rewind|rewind three x|rewind three times}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("REVERSE");
-        commands.push("REVERSE");
-        commands.push("REVERSE");
-        sendCommands(commands);
-    });
-
-app.intent('Replay',
-    {
-        "slots":{},
-        "utterances":[ "replay" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("REPLAY");
-        commands.push("REPLAY");
-        sendCommands(commands);
-    });
-
-app.intent('Record',
-    {
-        "slots":{},
-        "utterances":[ "record {this|} {show|}", "record the current show" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("RECORD");
-        commands.push("RIGHT");
-        sendCommands(commands);
-    });
-
-// FEATURES
-
-app.intent('CaptionsOn',
-    {
-        "slots":{},
-        "utterances":[ "{turn on|enable} {closed captions|captions}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("CC_ON");
-        sendCommands(commands);
-    });
-
-app.intent('CaptionsOff',
-    {
-
-        "slots":{},
-        "utterances":[ "{turn off|disable} {closed captions|captions}" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("CC_OFF");
-        sendCommands(commands);
-    });
-
-app.intent('QuickMode',
-    {
-        "slots":{},
-        "utterances":[ "{turn on|turn off|enable|disable|toggle} quick mode" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("PLAY");
-        commands.push("SELECT");
-        commands.push("CLEAR");
-        sendCommands(commands);
-    });
-
-app.intent('ThumbsUp',
-    {
-
-        "slots":{},
-        "utterances":[ "thumbs up" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("THUMBSUP");
-        sendCommands(commands);
-    });
-
-app.intent('ThumbsDown',
-    {
-
-        "slots":{},
-        "utterances":[ "thumbs down" ]
-    },
-    function(request,response) {
-        var commands = [];
-        commands.push("THUMBSDOWN");
-        sendCommands(commands);
-    });
+commandIntents.forEach(function(intent, index) {
+  app.intent(intent.name,
+      {
+          "slots":{},
+          "utterances":intent.utterences
+      },
+      function(request,response) {
+          sendCommands(intent.commands);
+      });
+});
 
 // ADVANCED
 
