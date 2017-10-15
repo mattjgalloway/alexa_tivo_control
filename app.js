@@ -241,6 +241,19 @@ app.intent('ListTiVoBoxes',
 
 // PLACES
 
+function CommandsForTypeString(string) {
+  var commands = [];
+  for (i = 0; i < string.length; i++) {
+    var char = string[i];
+    if (char === " ") {
+      commands.push("SPACE");
+    } else {
+      commands.push(char.toUpperCase());
+    }
+  }
+  return commands;
+}
+
 app.intent('Search',
     {
         "slots":{"TIVOSEARCHREQMOVIE":"AMAZON.Movie","TIVOSEARCHREQTVSERIES":"AMAZON.TVSeries"},
@@ -248,37 +261,23 @@ app.intent('Search',
     },
     function(request,response) {
         var commands = [];
-        var TIVOSEARCHREQMOVIE = String(request.slot("TIVOSEARCHREQMOVIE"));
-        var TIVOSEARCHREQTVSERIES = String(request.slot("TIVOSEARCHREQTVSERIES"));
-        var j = 0;
-        TIVOSEARCHREQMOVIE = TIVOSEARCHREQMOVIE.toUpperCase();
-        TIVOSEARCHREQTVSERIES = TIVOSEARCHREQTVSERIES.toUpperCase();
-        console.log(TIVOSEARCHREQMOVIE);
-        console.log(TIVOSEARCHREQTVSERIES);
         commands.push("TIVO");
         commands.push("NUM4");
-        if (TIVOSEARCHREQMOVIE != 'UNDEFINED') {
-            console.log("Movie Search");
-            for (i = 0; i < TIVOSEARCHREQMOVIE.length; i++) {
-                j = i + 1;
-                if (TIVOSEARCHREQMOVIE.substring(i, j) == " ") {
-                    commands.push("SPACE");
-                } else {
-                    commands.push(TIVOSEARCHREQMOVIE.substring(i, j));
-                }
-            }
+        
+        var TIVOSEARCHREQMOVIE = String(request.slot("TIVOSEARCHREQMOVIE"));
+        console.log(TIVOSEARCHREQMOVIE);
+        if (TIVOSEARCHREQMOVIE != 'undefined') {
+          console.log("Search Movie");
+          Array.prototype.push.apply(commands, CommandsForTypeString(TIVOSEARCHREQMOVIE));
         }
-        if (TIVOSEARCHREQTVSERIES != 'UNDEFINED') {
-            console.log("Television Search");
-            for (i = 0; i < TIVOSEARCHREQTVSERIES.length; i++) {
-                j = i + 1;
-                if (TIVOSEARCHREQTVSERIES.substring(i, j) == " ") {
-                    commands.push("SPACE");
-                } else {
-                    commands.push(TIVOSEARCHREQTVSERIES.substring(i, j));
-                }
-            }
+        
+        var TIVOSEARCHREQTVSERIES = String(request.slot("TIVOSEARCHREQTVSERIES"));
+        console.log(TIVOSEARCHREQTVSERIES);
+        if (TIVOSEARCHREQTVSERIES != 'undefined') {
+          console.log("Search Television");
+          Array.prototype.push.apply(commands, CommandsForTypeString(TIVOSEARCHREQTVSERIES));
         }
+        
         sendCommands(commands);
     });
 
@@ -289,35 +288,21 @@ app.intent('Type',
     },
     function(request,response) {
         var commands = [];
+        
         var TIVOTYPEREQMOVIE = String(request.slot("TIVOTYPEREQMOVIE"));
-        var TIVOTYPEREQTVSERIES = String(request.slot("TIVOTYPEREQTVSERIES"));
-        var j = 0;
-        TIVOTYPEREQMOVIE = TIVOTYPEREQMOVIE.toUpperCase();
-        TIVOTYPEREQTVSERIES = TIVOTYPEREQTVSERIES.toUpperCase();
         console.log(TIVOTYPEREQMOVIE);
+        if (TIVOTYPEREQMOVIE != 'undefined') {
+          console.log("Type Movie");
+          Array.prototype.push.apply(commands, CommandsForTypeString(TIVOTYPEREQMOVIE));
+        }
+        
+        var TIVOTYPEREQTVSERIES = String(request.slot("TIVOTYPEREQTVSERIES"));
         console.log(TIVOTYPEREQTVSERIES);
-        if (TIVOTYPEREQMOVIE != 'UNDEFINED') {
-            console.log("Type Movie");
-            for (i = 0; i < TIVOTYPEREQMOVIE.length; i++) {
-                j = i + 1;
-                if (TIVOTYPEREQMOVIE.substring(i, j) == " ") {
-                    commands.push("SPACE");
-                } else {
-                    commands.push(TIVOTYPEREQMOVIE.substring(i, j));
-                }
-            }
+        if (TIVOTYPEREQTVSERIES != 'undefined') {
+          console.log("Type Television");
+          Array.prototype.push.apply(commands, CommandsForTypeString(TIVOTYPEREQTVSERIES));
         }
-        if (TIVOTYPEREQTVSERIES != 'UNDEFINED') {
-            console.log("Type Television");
-            for (i = 0; i < TIVOTYPEREQTVSERIES.length; i++) {
-                j = i + 1;
-                if (TIVOTYPEREQTVSERIES.substring(i, j) == " ") {
-                    commands.push("SPACE");
-                } else {
-                    commands.push(TIVOTYPEREQTVSERIES.substring(i, j));
-                }
-            }
-        }
+        
         sendCommands(commands);
     });
 
