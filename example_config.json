@@ -8,7 +8,7 @@
       "name": "<box name>",
       "address": "<IP address>",
       "port": 31339,
-      "mini": false,
+      "type": "US",
       "apps": [
         "netflix",
         "amazon",
